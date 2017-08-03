@@ -32,6 +32,15 @@ namespace FlatMVVM
         #region Events
 
         /// <summary>
+        /// Callback method for the async initialization.
+        /// </summary>
+        /// <param name="result">The result.</param>
+        private void OnInitializationCompleted(IAsyncResult result)
+        {
+            InitializationCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, !result.IsCompleted, result.AsyncState));
+        }
+
+        /// <summary>
         /// Occurs when the initialization is completed.
         /// </summary>
         public event AsyncCompletedEventHandler InitializationCompleted;
@@ -39,12 +48,17 @@ namespace FlatMVVM
         /// <summary>
         /// Called when a property has changed.
         /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="propertyName">Name of changed property.</param>
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Call to raise PropertyChanged event and validate property.
+        /// </summary>
+        /// <param name="propertyValidation">Delegate for property validation.</param>
+        /// <param name="propertyName"></param>
         protected virtual void OnPropertyChanged(Func<ICollection<string>> propertyValidation, [CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -52,9 +66,9 @@ namespace FlatMVVM
         }
 
         /// <summary>
-        /// Called when a property has changed.
+        /// Call to raise PropertyChanged event.
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Name of changed property.</param>
         /// <param name="propertyChangedEventArgs"></param>
         protected virtual void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
@@ -66,6 +80,10 @@ namespace FlatMVVM
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Call to raise ErrorsChanged event.
+        /// </summary>
+        /// <param name="propertyName"></param>
         protected virtual void OnErrorsChanged(string propertyName)
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
@@ -85,24 +103,14 @@ namespace FlatMVVM
         /// </summary>
         protected FlatVM()
         {
-            // Initialization is done async to preserve UI thread.
-            Task.Factory.StartNew(Initialize).ContinueWith(InitializationCompletedCallback, TaskContinuationOptions.ExecuteSynchronously);
+            Task.Run(() => Initialize()).ContinueWith(OnInitializationCompleted, TaskContinuationOptions.ExecuteSynchronously);
         }
 
         /// <summary>
-        /// Initializes this instance.
+        /// Asynchronous initialization method.
         /// </summary>
         protected virtual void Initialize()
         {
-        }
-
-        /// <summary>
-        /// Callback method for the async initialization.
-        /// </summary>
-        /// <param name="result">The result.</param>
-        private void InitializationCompletedCallback(IAsyncResult result)
-        {
-            InitializationCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, !result.IsCompleted, result.AsyncState));
         }
 
         #endregion
@@ -139,7 +147,6 @@ namespace FlatMVVM
         /// </summary>
         /// <param name="propertyName">Name of property to validate.</param>
         /// <param name="propertyValidation">Property validation function.</param>
-        /// <returns>Validation task.</returns>
         private async void ValidatePropertyAsync(string propertyName, Func<ICollection<string>> propertyValidation)
         {
             ICollection<string> errors = await Task.Run(() => propertyValidation.Invoke());

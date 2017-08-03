@@ -7,12 +7,12 @@ namespace FlatMVVM.Utils
     /// <summary>
     /// TriggerAction which links events to commands.
     /// </summary>
-    public class TriggerCommandAction : TriggerAction<DependencyObject>
+    public class TriggerActionCommand : TriggerAction<DependencyObject>
     {
 
         #region Dependency Properties
 
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(TriggerCommandAction), new FrameworkPropertyMetadata((ICommand)null));
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(TriggerActionCommand), new FrameworkPropertyMetadata((ICommand)null));
 
         /// <summary>
         /// Command that should be called when event is triggered.
@@ -23,7 +23,7 @@ namespace FlatMVVM.Utils
             set { SetValue(CommandProperty, value); }
         }
 
-        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.RegisterAttached("CommandParameter", typeof(object), typeof(TriggerCommandAction), new FrameworkPropertyMetadata((object)null));
+        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.RegisterAttached("CommandParameter", typeof(object), typeof(TriggerActionCommand), new FrameworkPropertyMetadata((object)null));
 
         /// <summary>
         /// CommandParameter which should be passed with the Command.

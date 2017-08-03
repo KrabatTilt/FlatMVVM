@@ -1,5 +1,9 @@
 ﻿namespace FlatMVVM.ControlVM
 {
+
+    /// <summary>
+    /// FlatViewModel for ContextMenu entries
+    /// </summary>
     public class MenuItemVM : FlatVM
     {
 

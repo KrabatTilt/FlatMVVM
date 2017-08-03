@@ -1,5 +1,9 @@
 ﻿namespace FlatMVVM.ControlVM
 {
+
+    /// <summary>
+    /// FlatVM for TabControl entries.
+    /// </summary>
     public class TabControlVM : FlatVM
     {
 
@@ -25,7 +29,6 @@
                 OnPropertyChanged();
             }
         }
-
 
         public TabControlVM(string header, FlatVM content)
         {

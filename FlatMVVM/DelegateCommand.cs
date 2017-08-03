@@ -8,7 +8,7 @@ namespace FlatMVVM
     /// <summary>
     /// Basic RelayCommand
     /// </summary>
-    public class FlatCommand : ICommand
+    public class DelegateCommand : ICommand
     {
 
         #region Fields
@@ -18,26 +18,39 @@ namespace FlatMVVM
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Occurs when changes occur that affect whether or not the command should execute.
+        /// </summary>
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        #endregion
+
         #region Construction
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlatCommand"/> class.
+        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
         /// </summary>
         /// <param name="execute">The execute.</param>
-        public FlatCommand(Action<object> execute)
+        public DelegateCommand(Action<object> execute)
             : this(execute, null)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlatCommand"/>.
+        /// Initializes a new instance of the <see cref="DelegateCommand"/>.
         /// </summary>
         /// <param name="execute">Action to execute.</param>
         /// <param name="canExecute">Predicate to check before execution.</param>
-        public FlatCommand(Action<object> execute, Predicate<object> canExecute)
+        public DelegateCommand(Action<object> execute, Predicate<object> canExecute)
         {
             if (execute == null)
-                throw new ArgumentNullException(nameof(execute), "Cannot be null");
+                throw new ArgumentNullException(nameof(execute), "Cannot be null.");
 
             _execute = execute;
             _canExecute = canExecute;
@@ -58,15 +71,6 @@ namespace FlatMVVM
         }
 
         /// <summary>
-        /// Occurs when changes occur that affect whether or not the command should execute.
-        /// </summary>
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        /// <summary>
         /// Defines the method to be called when the command is invoked.
         /// </summary>
         /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
@@ -82,9 +86,9 @@ namespace FlatMVVM
     /// <summary>
     /// RelayCommand with generic 'Execute' and 'CanExecute' command parameter types.
     /// </summary>
-    /// <typeparam name="TExParam">Type of execue command parameter.</typeparam>
+    /// <typeparam name="TExParam">Type of execute command parameter.</typeparam>
     /// <typeparam name="TCExParam">Type of can execute command parameter.</typeparam>
-    public class FlatCommand<TExParam, TCExParam> : ICommand
+    public class DelegateCommand<TExParam, TCExParam> : ICommand
     {
 
         #region Fields
@@ -97,23 +101,23 @@ namespace FlatMVVM
         #region Construction
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlatCommand"/> class.
+        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
         /// </summary>
         /// <param name="execute">The execute.</param>
-        public FlatCommand(Action<TExParam> execute)
+        public DelegateCommand(Action<TExParam> execute)
             : this(execute, null)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlatCommand"/>.
+        /// Initializes a new instance of the <see cref="DelegateCommand"/>.
         /// </summary>
         /// <param name="execute">Action to execute.</param>
         /// <param name="canExecute">Predicate to check before execution.</param>
-        public FlatCommand(Action<TExParam> execute, Predicate<TCExParam> canExecute)
+        public DelegateCommand(Action<TExParam> execute, Predicate<TCExParam> canExecute)
         {
             if (execute == null)
-                throw new ArgumentNullException("execute", "Cannot be null");
+                throw new ArgumentNullException(nameof(execute), "Cannot be null.");
 
             _execute = execute;
             _canExecute = canExecute;
