@@ -7,10 +7,10 @@
     public class TabControlVM : FlatVM
     {
 
-        private string _header;
+        private object _header;
         private FlatVM _content;
 
-        public string Header
+        public object Header
         {
             get { return _header; }
             set
@@ -33,6 +33,12 @@
         public TabControlVM(string header, FlatVM content)
         {
             Header = header;
+            Content = content;
+        }
+
+        public TabControlVM(FlatVM content)
+        {
+            Header = content;
             Content = content;
         }
 
