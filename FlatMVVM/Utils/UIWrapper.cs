@@ -7,10 +7,12 @@ using System.Windows.Threading;
 namespace FlatMVVM.Utils
 {
     /// <summary>
-    /// Wraps UI functionality.
+    /// Wraps some UI and application functionality.
     /// </summary>
     public static class UIWrapper
     {
+
+        #region Dispatcher Operations
 
         /// <summary>
         /// 
@@ -52,6 +54,10 @@ namespace FlatMVVM.Utils
             Application.Current.Dispatcher.Invoke(action, priority);
         }
 
+        #endregion
+
+        #region Commands
+
         /// <summary>
         /// Reevaluates all commands asynchronously.
         /// </summary>
@@ -59,6 +65,10 @@ namespace FlatMVVM.Utils
         {
             DispatchAsync(CommandManager.InvalidateRequerySuggested);
         }
+
+        #endregion
+
+        #region MainWindow
 
         /// <summary>
         /// Activate current applications MainWindow.
@@ -76,10 +86,30 @@ namespace FlatMVVM.Utils
             Application.Current.MainWindow.IsEnabled = false;
         }
 
+        #endregion
+
+        #region DesignTime
+
         /// <summary>
         /// Check whether code is executed in design mode or not.
         /// </summary>
         /// <returns>True if in design mode; else false.</returns>
         public static bool IsInDesignMode => DesignerProperties.GetIsInDesignMode(new DependencyObject());
+
+        #endregion
+
+        #region Cursor
+
+        /// <summary>
+        /// Set desired mouse cursor.
+        /// </summary>
+        /// <param name="cursor">A new mouse cursor.</param>
+        public static void SetMouseCursor(Cursor cursor)
+        {
+            DispatchAsync(() => Mouse.OverrideCursor = cursor);
+        }
+
+        #endregion
+
     }
 }
