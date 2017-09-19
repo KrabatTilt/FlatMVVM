@@ -71,6 +71,11 @@ namespace FlatMVVM.Utils
         #region MainWindow
 
         /// <summary>
+        /// Current Application MainWindow.
+        /// </summary>
+        public static Window MainWindow => Application.Current.MainWindow;
+
+        /// <summary>
         /// Activate current applications MainWindow.
         /// </summary>
         public static void EnableMainWindow()
