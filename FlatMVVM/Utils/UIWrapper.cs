@@ -21,7 +21,7 @@ namespace FlatMVVM.Utils
         /// <returns></returns>
         public static DispatcherOperation DispatchAsync(Action action)
         {
-           return Application.Current.Dispatcher.BeginInvoke(action);
+            return Application.Current.Dispatcher.BeginInvoke(action);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace FlatMVVM.Utils
         /// Check whether code is executed in design mode or not.
         /// </summary>
         /// <returns>True if in design mode; else false.</returns>
-        public static bool IsInDesignMode => DesignerProperties.GetIsInDesignMode(new DependencyObject());
+        public static bool IsInDesignMode { get; } = DesignerProperties.GetIsInDesignMode(new DependencyObject());
 
         #endregion
 
