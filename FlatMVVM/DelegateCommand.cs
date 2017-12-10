@@ -25,8 +25,8 @@ namespace FlatMVVM
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         #endregion
@@ -49,10 +49,7 @@ namespace FlatMVVM
         /// <param name="canExecute">Predicate to check before execution.</param>
         public DelegateCommand(Action<object> execute, Predicate<object> canExecute)
         {
-            if (execute == null)
-                throw new ArgumentNullException(nameof(execute), "Cannot be null.");
-
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute), "Cannot be null.");
             _canExecute = canExecute;
         }
         #endregion
@@ -116,10 +113,7 @@ namespace FlatMVVM
         /// <param name="canExecute">Predicate to check before execution.</param>
         public DelegateCommand(Action<TExParam> execute, Predicate<TCExParam> canExecute)
         {
-            if (execute == null)
-                throw new ArgumentNullException(nameof(execute), "Cannot be null.");
-
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute), "Cannot be null.");
             _canExecute = canExecute;
         }
 
@@ -143,8 +137,8 @@ namespace FlatMVVM
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         /// <summary>

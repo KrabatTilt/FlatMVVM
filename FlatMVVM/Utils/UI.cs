@@ -9,47 +9,47 @@ namespace FlatMVVM.Utils
     /// <summary>
     /// Wraps some UI and application functionality.
     /// </summary>
-    public static class UIWrapper
+    public static class UI
     {
 
         #region Dispatcher Operations
 
         /// <summary>
-        /// 
+        /// Run action asynchronously on UI thread.
         /// </summary>
-        /// <param name="action"></param>
+        /// <param name="action">Action to execute.</param>
         /// <returns></returns>
-        public static DispatcherOperation DispatchAsync(Action action)
+        public static DispatcherOperation RunAsync(Action action)
         {
             return Application.Current.Dispatcher.BeginInvoke(action);
         }
 
         /// <summary>
-        /// 
+        /// Run action asynchronously on UI thread with specified priority.
         /// </summary>
-        /// <param name="action"></param>
-        /// <param name="priority"></param>
+        /// <param name="action">Action to execute.</param>
+        /// <param name="priority">Execution priority.</param>
         /// <returns></returns>
-        public static DispatcherOperation DispatchAsync(Action action, DispatcherPriority priority)
+        public static DispatcherOperation RunAsync(Action action, DispatcherPriority priority)
         {
             return Application.Current.Dispatcher.BeginInvoke(action, priority);
         }
 
         /// <summary>
-        /// 
+        /// Run action synchronously on UI thread.
         /// </summary>
-        /// <param name="action"></param>
-        public static void DispatchSync(Action action)
+        /// <param name="action">Action to execute.</param>
+        public static void RunSync(Action action)
         {
             Application.Current.Dispatcher.Invoke(action);
         }
 
         /// <summary>
-        /// 
+        /// Run action synchronously on UI thread with specified priority.
         /// </summary>
-        /// <param name="action"></param>
-        /// <param name="priority"></param>
-        public static void DispatchSync(Action action, DispatcherPriority priority)
+        /// <param name="action">Action to execute.</param>
+        /// <param name="priority">Execution priority.</param>
+        public static void RunSync(Action action, DispatcherPriority priority)
         {
             Application.Current.Dispatcher.Invoke(action, priority);
         }
@@ -63,7 +63,7 @@ namespace FlatMVVM.Utils
         /// </summary>
         public static void RefreshCommands()
         {
-            DispatchAsync(CommandManager.InvalidateRequerySuggested);
+            RunAsync(CommandManager.InvalidateRequerySuggested);
         }
 
         #endregion
@@ -76,19 +76,19 @@ namespace FlatMVVM.Utils
         public static Window MainWindow => Application.Current.MainWindow;
 
         /// <summary>
-        /// Activate current applications MainWindow.
+        /// Enable current application MainWindow.
         /// </summary>
         public static void EnableMainWindow()
         {
-            Application.Current.MainWindow.IsEnabled = true;
+            MainWindow.IsEnabled = true;
         }
 
         /// <summary>
-        /// Deactivate current applications MainWindow.
+        /// Disable current application MainWindow.
         /// </summary>
         public static void DisableMainWindow()
         {
-            Application.Current.MainWindow.IsEnabled = false;
+            MainWindow.IsEnabled = false;
         }
 
         #endregion
@@ -98,6 +98,9 @@ namespace FlatMVVM.Utils
         /// <summary>
         /// Check whether code is executed in design mode or not.
         /// </summary>
+        /// <remarks>
+        /// This method is evaluated only once on application startup.
+        /// </remarks>
         /// <returns>True if in design mode; else false.</returns>
         public static bool IsInDesignMode { get; } = DesignerProperties.GetIsInDesignMode(new DependencyObject());
 
@@ -108,10 +111,10 @@ namespace FlatMVVM.Utils
         /// <summary>
         /// Set desired mouse cursor.
         /// </summary>
-        /// <param name="cursor">A new mouse cursor.</param>
+        /// <param name="cursor">New mouse cursor.</param>
         public static void SetMouseCursor(Cursor cursor)
         {
-            DispatchAsync(() => Mouse.OverrideCursor = cursor);
+            RunAsync(() => Mouse.OverrideCursor = cursor);
         }
 
         #endregion

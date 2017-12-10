@@ -12,7 +12,7 @@
 
         public object Header
         {
-            get { return _header; }
+            get => _header;
             set
             {
                 _header = value; 
@@ -22,7 +22,7 @@
 
         public FlatVM Content
         {
-            get { return _content; }
+            get => _content;
             set
             {
                 _content = value;

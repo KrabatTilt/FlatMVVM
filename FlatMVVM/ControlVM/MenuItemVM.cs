@@ -17,7 +17,7 @@
 
         public string Header
         {
-            get { return _header; }
+            get => _header;
             set
             {
                 _header = value; 
