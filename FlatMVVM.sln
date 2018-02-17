@@ -1,14 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlatMVVM", "FlatMVVM\FlatMVVM.csproj", "{5C60DA8D-0216-4E51-998D-8C3B6463B247}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{AA106A09-490B-4E86-87DC-77B17E6922A7}"
-	ProjectSection(SolutionItems) = preProject
-		libs\System.Windows.Interactivity.dll = libs\System.Windows.Interactivity.dll
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
