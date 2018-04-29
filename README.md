@@ -3,6 +3,9 @@ FlatMVVM is a simple MVVM framwork for WPF applications with focus on MVVM basic
 
 [![flatmvvm MyGet Build Status](https://www.myget.org/BuildSource/Badge/flatmvvm?identifier=63c10aac-91d5-4311-bff7-59e86dafe8b8)](https://www.myget.org/)
 
+## Note:
+FlatMVVM is limited to .net >= 4.5 as FlatVM currently implements INotifyDataErrorInfo which is a .net 4.5 feature. In the future there will also be a .net 4.0 version available.
+
 ## 1. Basic Binding
 ### 1.1. Binding Properties
 ### 1.2. Binding Commands
