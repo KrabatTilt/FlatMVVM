@@ -26,5 +26,5 @@ mkdir Build
 mkdir Build\lib
 mkdir Build\lib\net45
 
-call %nuget% pack "FlatMVVM.nuspec" -symbols -o Build -Version %version% -p Configuration=%config%
+call %nuget% pack "FlatMVVM\FlatMVVM.nuspec" -symbols -o Build -Version %version% -p Configuration=%config%
 REM %nuget% pack "FlatMVVM.nuspec" -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
