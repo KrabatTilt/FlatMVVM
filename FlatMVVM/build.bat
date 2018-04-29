@@ -17,7 +17,7 @@ if "%nuget%" == "" (
 
 REM Build
 
-"%programfiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe" ../FlatMVVM.sln /t:FlatMVVM /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
+"%programfiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe" FlatMVVM.sln /t:FlatMVVM /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
 Rem "%programfiles(x86)%\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\MSBuild.exe" ../FlatMVVM.sln /t:FlatMVVM /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
 
 
