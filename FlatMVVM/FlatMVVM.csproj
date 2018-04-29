@@ -4,11 +4,15 @@
     <TargetFramework>net45</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>TT.FlatMVVM</PackageId>
-    <Version>0.9.0</Version>
+    <Version>0.9.1</Version>
     <Authors>KrabatTilt</Authors>
     <PackageProjectUrl>https://github.com/KrabatTilt/FlatMVVM</PackageProjectUrl>
     <RepositoryUrl>https://github.com/KrabatTilt/FlatMVVM</RepositoryUrl>
     <PackageTags>mvvm</PackageTags>
+    <Copyright>KrabatTilt</Copyright>
+    <PackageLicenseUrl>https://github.com/KrabatTilt/FlatMVVM/blob/master/LICENSE</PackageLicenseUrl>
+    <Description>Simple MVVM framework for WPF applications</Description>
+    <PackageReleaseNotes>Updated nuget info fileds</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
