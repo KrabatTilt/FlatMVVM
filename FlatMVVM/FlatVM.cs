@@ -131,7 +131,7 @@ namespace FlatMVVM
         }
 
         /// <summary>
-        /// Refresh all bindings of this ViewModel.
+        /// Refresh all bindings connected to this ViewModel.
         /// </summary>
         public void RefreshAllBindings()
         {
