@@ -2,7 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>TT.FlatMVVM</PackageId>
+    <Version>0.9.0</Version>
+    <Authors>KrabatTilt</Authors>
+    <PackageProjectUrl>https://github.com/KrabatTilt/FlatMVVM</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/KrabatTilt/FlatMVVM</RepositoryUrl>
+    <PackageTags>mvvm</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
