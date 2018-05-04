@@ -3,6 +3,8 @@ FlatMVVM is a simple MVVM framework for WPF applications with focus on MVVM basi
 
 [![flatmvvm MyGet Build Status](https://www.myget.org/BuildSource/Badge/flatmvvm?identifier=63c10aac-91d5-4311-bff7-59e86dafe8b8)](https://www.myget.org/)
 
+NuGet: [FlatMVVM](https://www.nuget.org/packages/TT.FlatMVVM/)
+
 ### Features
 + ViewModel BaseClass implementing INotifyPrypertyChanged and INotifyDataErrorInfo
 + ICommand as DelegateCommand
