@@ -78,17 +78,37 @@ namespace FlatMVVM.Utils
         /// <summary>
         /// Enable current application MainWindow.
         /// </summary>
-        public static void EnableMainWindow()
+        public static void EnableMainWindow(DispatcherPriority? priority = null)
         {
-            MainWindow.IsEnabled = true;
+            if (priority.HasValue)
+            {
+                RunSync(() =>
+                {
+                    MainWindow.IsEnabled = true;
+                }, priority.Value);
+            }
+            else
+            {
+                MainWindow.IsEnabled = true;
+            }
         }
 
         /// <summary>
         /// Disable current application MainWindow.
         /// </summary>
-        public static void DisableMainWindow()
+        public static void DisableMainWindow(DispatcherPriority? priority = null)
         {
-            MainWindow.IsEnabled = false;
+            if (priority.HasValue)
+            {
+                RunSync(() =>
+                {
+                    MainWindow.IsEnabled = false;
+                }, priority.Value);
+            }
+            else
+            {
+                MainWindow.IsEnabled = false;
+            }
         }
 
         #endregion

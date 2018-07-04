@@ -32,20 +32,6 @@ namespace FlatMVVM
         #region Events
 
         /// <summary>
-        /// Callback method for the async initialization.
-        /// </summary>
-        /// <param name="result">The result.</param>
-        private void OnInitializationCompleted(IAsyncResult result)
-        {
-            InitializationCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, !result.IsCompleted, result.AsyncState));
-        }
-
-        /// <summary>
-        /// Occurs when the initialization is completed.
-        /// </summary>
-        public event AsyncCompletedEventHandler InitializationCompleted;
-
-        /// <summary>
         /// Called when a property has changed.
         /// </summary>
         /// <param name="propertyName">Name of changed property.</param>
@@ -58,7 +44,7 @@ namespace FlatMVVM
         /// Call to raise PropertyChanged event and validate property.
         /// </summary>
         /// <param name="propertyValidation">Delegate for property validation.</param>
-        /// <param name="propertyName"></param>
+        /// <param name="propertyName">Name of changed property.</param>
         protected virtual void OnPropertyChanged(Func<ICollection<string>> propertyValidation, [CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -93,25 +79,6 @@ namespace FlatMVVM
         /// Occurs when the validation errors have changed for a property or for the entire entity.
         /// </summary>
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
-        #endregion
-
-        #region Construction/Initialization
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FlatVM"/> class.
-        /// </summary>
-        protected FlatVM()
-        {
-            Task.Run(() => Initialize()).ContinueWith(OnInitializationCompleted, TaskContinuationOptions.ExecuteSynchronously);
-        }
-
-        /// <summary>
-        /// Asynchronous initialization method.
-        /// </summary>
-        protected virtual void Initialize()
-        {
-        }
 
         #endregion
 
