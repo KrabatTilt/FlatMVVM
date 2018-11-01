@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfDemo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="FlatMVVM Examples" Height="400" Width="380"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        d:DataContext="{d:DesignInstance local:MainVM, IsDesignTimeCreatable = True}">
+
+    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListView.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Height" Value="100" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+        </ListView.Resources>
+        <ListView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel IsItemsHost="True" />
+            </ItemsPanelTemplate>
+        </ListView.ItemsPanel>
+
+        <Button Content="Part 1" Command="{Binding OpenExample}" CommandParameter="1" />
+        <Button Content="Part 2" Command="{Binding OpenExample}" CommandParameter="2" />
+        <Button Content="Part 3" Command="{Binding OpenExample}" CommandParameter="3" />
+
+    </ListView>
 </Window>
