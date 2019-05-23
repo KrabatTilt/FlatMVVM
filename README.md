@@ -21,5 +21,5 @@ FlatMVVM is currently limited to .net >= 4.5 as FlatVM currently implements INot
 ### 1.2. Binding Commands
 ### 1.3. Binding Events
 ## 2. Utils
-### 2.1. UIWrapper
+### 2.1. UI
 ### 2.2. Binding Proxy

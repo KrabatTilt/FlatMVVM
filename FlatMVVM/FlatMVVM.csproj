@@ -18,6 +18,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="FlatMVVM.v3.ncrunchproject" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
   </ItemGroup>
 
