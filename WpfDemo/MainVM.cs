@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using FlatMVVM;
-using FlatMVVM.Utils;
+using TT.FlatMVVM.Wpf;
+using TT.FlatMVVM.Wpf.Utils;
 using WpfDemo.Part1;
 
 namespace WpfDemo

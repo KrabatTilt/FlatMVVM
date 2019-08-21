@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace FlatMVVM
+namespace TT.FlatMVVM.Wpf
 {
 
     /// <summary>

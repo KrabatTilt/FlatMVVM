@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Markup;
 
-namespace FlatMVVM.Utils
+namespace TT.FlatMVVM.Wpf.Utils
 {
     /// <inheritdoc />
     /// <summary>

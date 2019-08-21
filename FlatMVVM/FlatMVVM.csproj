@@ -3,18 +3,25 @@
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>TT.FlatMVVM</PackageId>
+    <PackageId>TT.FlatMVVM.Wpf</PackageId>
     <Version>1.0.0</Version>
     <Authors>KrabatTilt</Authors>
     <PackageProjectUrl>https://github.com/KrabatTilt/FlatMVVM</PackageProjectUrl>
     <RepositoryUrl>https://github.com/KrabatTilt/FlatMVVM</RepositoryUrl>
     <PackageTags>mvvm wpf</PackageTags>
     <Copyright>KrabatTilt</Copyright>
-    <PackageLicenseUrl>https://github.com/KrabatTilt/FlatMVVM/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <Description>Simple MVVM framework for WPF applications</Description>
-    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryType>Git</RepositoryType>
     <PackageIconUrl />
+    <Company>Tilt Technologies</Company>
+    <AssemblyName>TT.FlatMVVM.Wpf</AssemblyName>
+    <RootNamespace>TT.FlatMVVM.Wpf</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>FlatMVVM.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

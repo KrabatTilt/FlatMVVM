@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace FlatMVVM.Utils
+namespace TT.FlatMVVM.Wpf.Utils
 {
     /// <summary>
     /// TriggerAction which links events to commands.

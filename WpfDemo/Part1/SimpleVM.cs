@@ -1,5 +1,5 @@
 ﻿using System.Timers;
-using FlatMVVM;
+using TT.FlatMVVM.Wpf;
 
 namespace WpfDemo.Part1
 {

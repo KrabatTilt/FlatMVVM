@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace FlatMVVM.Utils
+namespace TT.FlatMVVM.Wpf.Utils
 {
     /// <summary>
     /// Wraps some UI and application functionality.
