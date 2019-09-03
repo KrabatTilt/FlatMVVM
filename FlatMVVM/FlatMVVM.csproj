@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <None Remove="FlatMVVM.v3.ncrunchproject" />
+    <None Remove="FlatMVVM.xml" />
   </ItemGroup>
 
   <ItemGroup>
