@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace TT.FlatMVVM.Wpf
+namespace TT.FlatMVVM
 {
 
     public abstract class FlatVM : INotifyPropertyChanged, INotifyDataErrorInfo

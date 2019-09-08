@@ -16,9 +16,10 @@
     <RepositoryType>Git</RepositoryType>
     <PackageIconUrl />
     <Company>Tilt Technologies</Company>
-    <AssemblyName>TT.FlatMVVM.Wpf</AssemblyName>
-    <RootNamespace>TT.FlatMVVM.Wpf</RootNamespace>
+    <AssemblyName>TT.FlatMVVM</AssemblyName>
+    <RootNamespace>TT.FlatMVVM</RootNamespace>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Product>TT.FlatMVVM</Product>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

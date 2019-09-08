@@ -1,4 +1,4 @@
-﻿namespace TT.FlatMVVM.Wpf.ControlVM
+﻿namespace TT.FlatMVVM.ControlVM
 {
 
     /// <summary>

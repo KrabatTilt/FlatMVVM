@@ -1,4 +1,5 @@
 ﻿using System.Timers;
+using TT.FlatMVVM;
 using TT.FlatMVVM.Wpf;
 
 namespace WpfDemo.Part1

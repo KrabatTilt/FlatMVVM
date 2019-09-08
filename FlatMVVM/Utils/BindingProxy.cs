@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TT.FlatMVVM.Wpf.Utils
+namespace TT.FlatMVVM.Utils
 {
 
     public class BindingProxy : Freezable
