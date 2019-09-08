@@ -13,8 +13,13 @@ NuGet: [FlatMVVM](https://www.nuget.org/packages/TT.FlatMVVM/)
 + Binding to readonly DependencyProperties (TODO)
 
 
-## Note:
-FlatMVVM is currently limited to .net >= 4.5 as FlatVM currently implements INotifyDataErrorInfo which is a .net 4.5 feature. In the future there will also be a .net 4.0 version available.
+## Migrate from 1.0.1 to 1.1.0:
+Version 1.1.0 uses [Microsoft.Xaml.Behaviors.Wpf](https://www.nuget.org/packages/Microsoft.Xaml.Behaviors.Wpf/) instead of [Expression.Blend.Sdk](https://www.nuget.org/packages/Expression.Blend.Sdk/1.0.2).
+Also the default namespace has changed from FlatMVVM to TT.FlatMVVM. When you upgrade your project won't compile.
+1. Update FlatMVVM
+2. In xaml replace *xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"* by *xmlns:i="http://schemas.microsoft.com/xaml/behaviors"*
+3. In ViewModels replace using FlatMVV; by using TT.FlatMVVM
+
 
 ## 1. Basic Binding
 ### 1.1. Binding Properties

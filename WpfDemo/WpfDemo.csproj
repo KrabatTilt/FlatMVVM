@@ -115,7 +115,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FlatMVVM\FlatMVVM.csproj">
       <Project>{5c60da8d-0216-4e51-998d-8c3b6463b247}</Project>

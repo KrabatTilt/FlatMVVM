@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using TT.FlatMVVM;
 using TT.FlatMVVM.Utils;
-using TT.FlatMVVM.Wpf;
 using WpfDemo.Part1;
 
 namespace WpfDemo
