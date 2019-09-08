@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>TT.FlatMVVM.Wpf</PackageId>
     <Version>1.1.0</Version>
     <Authors>KrabatTilt</Authors>
