@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFrameworks>net45;netcoreapp30</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>TT.FlatMVVM</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Authors>KrabatTilt</Authors>
     <PackageProjectUrl>https://github.com/KrabatTilt/FlatMVVM</PackageProjectUrl>
     <RepositoryUrl>https://github.com/KrabatTilt/FlatMVVM</RepositoryUrl>
-    <PackageTags>mvvm wpf</PackageTags>
+    <PackageTags>mvvm wpf netcore</PackageTags>
     <Copyright>KrabatTilt</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <Description>Simple MVVM framework for WPF applications</Description>
-    <PackageReleaseNotes>Moved from Expression.Blend.Sdk 1.0.2 to Microsoft.Xaml.Behaviors.Wpf 1.0.1</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for .net core 3.0 using Microsoft.Xaml.Behaviors.Wpf 1.0.30</PackageReleaseNotes>
     <RepositoryType>Git</RepositoryType>
     <PackageIconUrl />
     <Company>Tilt Technologies</Company>
@@ -31,7 +31,7 @@
     <None Remove="FlatMVVM.xml" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.30" />
   </ItemGroup>
 
 </Project>

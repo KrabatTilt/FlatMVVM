@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "readme", "readme", "{8A67A9
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCoreDemo", "WpfCoreDemo\WpfCoreDemo.csproj", "{A6D1D2D3-F195-44E1-9CAF-F50CF2B73DDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{C37A6157-9A37-4A03-BC3B-C49C3BD4099D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C37A6157-9A37-4A03-BC3B-C49C3BD4099D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C37A6157-9A37-4A03-BC3B-C49C3BD4099D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6D1D2D3-F195-44E1-9CAF-F50CF2B73DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6D1D2D3-F195-44E1-9CAF-F50CF2B73DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6D1D2D3-F195-44E1-9CAF-F50CF2B73DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6D1D2D3-F195-44E1-9CAF-F50CF2B73DDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
