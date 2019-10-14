@@ -3,6 +3,10 @@
 namespace TT.FlatMVVM.Utils
 {
 
+    /// <summary>
+    /// 
+    /// </summary>
+
     public class BindingProxy : Freezable
     {
         protected override Freezable CreateInstanceCore()

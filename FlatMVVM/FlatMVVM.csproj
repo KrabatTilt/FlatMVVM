@@ -26,6 +26,10 @@
     <DocumentationFile>FlatMVVM.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="FlatMVVM.v3.ncrunchproject" />
     <None Remove="FlatMVVM.xml" />
