@@ -16,6 +16,7 @@ NuGet: [FlatMVVM](https://www.nuget.org/packages/TT.FlatMVVM/)
 
 ### TODO
 + Binding to readonly DependencyProperties
++ Async DelegateCommand implementation
 
 
 ## Migrate from 1.0.1 to 1.1.0:
