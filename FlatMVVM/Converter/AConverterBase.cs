@@ -3,7 +3,6 @@ using System.Windows.Markup;
 
 namespace TT.FlatMVVM.Converter
 {
-    /// <inheritdoc />
     /// <summary>
     /// Use ValueConverters as markup extension.
     /// </summary>

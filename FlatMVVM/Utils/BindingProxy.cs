@@ -4,11 +4,14 @@ namespace TT.FlatMVVM.Utils
 {
 
     /// <summary>
-    /// 
+    /// BindingProxy
     /// </summary>
-
     public class BindingProxy : Freezable
     {
+        /// <summary>
+        /// Creates a new instance of the <see cref="T:System.Windows.Freezable" /> derived class.
+        /// </summary>
+        /// <returns>The new instance.</returns>
         protected override Freezable CreateInstanceCore()
         {
             return new BindingProxy();

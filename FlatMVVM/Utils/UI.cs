@@ -21,7 +21,7 @@ namespace TT.FlatMVVM.Utils
         /// <returns></returns>
         public static DispatcherOperation RunAsync(Action action)
         {
-            return Application.Current.Dispatcher.BeginInvoke(action);
+            return Application.Current.Dispatcher?.BeginInvoke(action);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace TT.FlatMVVM.Utils
         /// <returns></returns>
         public static DispatcherOperation RunAsync(Action action, DispatcherPriority priority)
         {
-            return Application.Current.Dispatcher.BeginInvoke(action, priority);
+            return Application.Current.Dispatcher?.BeginInvoke(action, priority);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace TT.FlatMVVM.Utils
         /// <param name="action">Action to execute.</param>
         public static void RunSync(Action action)
         {
-            Application.Current.Dispatcher.Invoke(action);
+            Application.Current.Dispatcher?.Invoke(action);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace TT.FlatMVVM.Utils
         /// <param name="priority">Execution priority.</param>
         public static void RunSync(Action action, DispatcherPriority priority)
         {
-            Application.Current.Dispatcher.Invoke(action, priority);
+            Application.Current.Dispatcher?.Invoke(action, priority);
         }
 
         #endregion
@@ -61,9 +61,9 @@ namespace TT.FlatMVVM.Utils
         /// <summary>
         /// Reevaluates all commands asynchronously.
         /// </summary>
-        public static void RefreshCommands()
+        public static DispatcherOperation RefreshCommandsAsync()
         {
-            RunAsync(CommandManager.InvalidateRequerySuggested);
+            return RunAsync(CommandManager.InvalidateRequerySuggested);
         }
 
         #endregion
@@ -132,9 +132,9 @@ namespace TT.FlatMVVM.Utils
         /// Set desired mouse cursor.
         /// </summary>
         /// <param name="cursor">New mouse cursor.</param>
-        public static void SetMouseCursor(Cursor cursor)
+        public static DispatcherOperation SetMouseCursorAsync(Cursor cursor)
         {
-            RunAsync(() => Mouse.OverrideCursor = cursor);
+            return RunAsync(() => Mouse.OverrideCursor = cursor);
         }
 
         #endregion

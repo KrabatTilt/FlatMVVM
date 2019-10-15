@@ -12,6 +12,9 @@ namespace TT.FlatMVVM.Utils
 
         #region Dependency Properties
 
+        /// <summary>
+        /// Command DP
+        /// </summary>
         public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(TriggerActionCommand), new FrameworkPropertyMetadata((ICommand)null));
 
         /// <summary>
@@ -23,6 +26,9 @@ namespace TT.FlatMVVM.Utils
             set => SetValue(CommandProperty, value);
         }
 
+        /// <summary>
+        /// CommandParameter DP
+        /// </summary>
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.RegisterAttached("CommandParameter", typeof(object), typeof(TriggerActionCommand), new FrameworkPropertyMetadata((object)null));
 
         /// <summary>

@@ -22,6 +22,14 @@ namespace TT.FlatMVVM.Converter
         /// </summary>
         public bool Inverse { get; set; }
 
+        /// <summary>
+        /// Convert bool to visibility.
+        /// </summary>
+        /// <param name="value">Source value of type bool.</param>
+        /// <param name="targetType">Target value of type Visibility.</param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (targetType != typeof(Visibility))
@@ -33,6 +41,14 @@ namespace TT.FlatMVVM.Converter
             return (Inverse ? !(bool)value : (bool)value) ? Visibility.Visible : InvisibleTarget;
         }
 
+        /// <summary>
+        /// Convaert Visibility to bool
+        /// </summary>
+        /// <param name="value">Source value of type Visibility.</param>
+        /// <param name="targetType">Target value of type bool.</param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (targetType != typeof(bool))

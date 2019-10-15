@@ -15,6 +15,9 @@
 
         #region Properties
 
+        /// <summary>
+        /// Get/Set item header.
+        /// </summary>
         public string Header
         {
             get => _header;
