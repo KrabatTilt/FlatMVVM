@@ -10,9 +10,12 @@ NuGet: [FlatMVVM](https://www.nuget.org/packages/TT.FlatMVVM/)
 + Supports Wpf net Core projects
 + ViewModel BaseClass implementing INotifyPrypertyChanged and INotifyDataErrorInfo
 + ICommand as DelegateCommand
-+ EventBinding of Commands via System.Windows.Interactivity based TriggerActionCommand
++ EventBinding of Commands via Microsoft.Xaml.Behaviors.Wpf based TriggerActionCommand
 + BindingProxy to access DataContext when not inherited
-+ Binding to readonly DependencyProperties (TODO)
++ ValueConverter Markup Extension
+
+### TODO
++ Binding to readonly DependencyProperties
 
 
 ## Migrate from 1.0.1 to 1.1.0:
@@ -23,10 +26,11 @@ Also the default namespace has changed from FlatMVVM to TT.FlatMVVM. When you up
 3. In ViewModels replace using FlatMVV; by using TT.FlatMVVM
 
 
-## 1. Basic Binding
-### 1.1. Binding Properties
-### 1.2. Binding Commands
-### 1.3. Binding Events
-## 2. Utils
-### 2.1. UI
-### 2.2. Binding Proxy
+## 1. Binding Basics
+### 1.1. Binding to Properties
+### 1.2. Binding to Commands
+### 1.3. Binding to Events
+## 2. Converter
+## 3. Utils
+### 3.1. UI
+### 3.2. Binding Proxy
