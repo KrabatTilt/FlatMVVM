@@ -8,6 +8,7 @@
         public Part2Window()
         {
             InitializeComponent();
+            DataContext = new Part2VM();
         }
     }
 }

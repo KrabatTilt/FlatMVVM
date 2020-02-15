@@ -4,7 +4,7 @@ using System.Windows.Markup;
 namespace TT.FlatMVVM.Converter
 {
     /// <summary>
-    /// Use ValueConverters as markup extension.
+    /// Base class used to implement ValueConverters for use as markup extension.
     /// </summary>
     public abstract class AConverterBase : MarkupExtension
     {

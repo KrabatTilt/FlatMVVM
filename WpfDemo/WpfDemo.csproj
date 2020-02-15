@@ -84,6 +84,8 @@
       <DependentUpon>Part1Window.xaml</DependentUpon>
     </Compile>
     <Compile Include="Part1\SimpleVM.cs" />
+    <Compile Include="Part2\Part2Enum.cs" />
+    <Compile Include="Part2\Part2VM.cs" />
     <Compile Include="Part2\Part2Window.xaml.cs">
       <DependentUpon>Part2Window.xaml</DependentUpon>
     </Compile>

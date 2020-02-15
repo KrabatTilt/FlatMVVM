@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 namespace TT.FlatMVVM
 {
 
+    /// <summary>
+    /// ViewModel base class.
+    /// </summary>
     public abstract class FlatVM : INotifyPropertyChanged, INotifyDataErrorInfo
     {
 

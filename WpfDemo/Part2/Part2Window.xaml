@@ -4,9 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfDemo.Part2"
+        xmlns:converter="clr-namespace:TT.FlatMVVM.Converter;assembly=TT.FlatMVVM"
         mc:Ignorable="d"
-        Title="Command Binding" Height="450" Width="800">
-    <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="TODO"></TextBlock>
-    </Grid>
+        Title="Command Binding" Height="250" Width="400"
+        d:DataContext="{d:DesignInstance local:Part2VM, IsDesignTimeCreatable=True}">
+    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+
+        <ComboBox SelectedItem="{Binding SuperEnum}"
+                  ItemsSource="{Binding Source={x:Type local:Part2Enum}, 
+                                Converter={converter:EnumSourceConverter UseDescription=True}}"
+                  Width="100" Height="20" />
+
+        <CheckBox Content="Use description attribute"
+            IsChecked="{Binding UseEnumValueDescription}" VerticalAlignment="Center" />
+    </StackPanel>
 </Window>

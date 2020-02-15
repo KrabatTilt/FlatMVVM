@@ -5,6 +5,7 @@ using System.Windows.Input;
 using TT.FlatMVVM;
 using TT.FlatMVVM.Utils;
 using WpfDemo.Part1;
+using WpfDemo.Part2;
 
 namespace WpfDemo
 {
@@ -30,6 +31,9 @@ namespace WpfDemo
                 {
                     case "1":
                         exampleWindow = new Part1Window { Owner = UI.MainWindow, ShowInTaskbar = false };
+                        break;
+                    case "2":
+                        exampleWindow = new Part2Window { Owner = UI.MainWindow, ShowInTaskbar = false };
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(id), "");
