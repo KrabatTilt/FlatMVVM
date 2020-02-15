@@ -4,7 +4,7 @@
     <TargetFrameworks>net45;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>TT.FlatMVVM</PackageId>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Authors>KrabatTilt</Authors>
     <PackageProjectUrl>https://github.com/KrabatTilt/FlatMVVM</PackageProjectUrl>
     <RepositoryUrl>https://github.com/KrabatTilt/FlatMVVM</RepositoryUrl>
