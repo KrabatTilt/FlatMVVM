@@ -12,7 +12,7 @@
     <Copyright>KrabatTilt</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <Description>Simple MVVM framework for WPF applications</Description>
-    <PackageReleaseNotes>Added support for .net core 3.0 using Microsoft.Xaml.Behaviors.Wpf 1.0.30</PackageReleaseNotes>
+    <PackageReleaseNotes>Added netcoreapp3.1 tergaet. Added enum binding support.</PackageReleaseNotes>
     <RepositoryType>Git</RepositoryType>
     <PackageIconUrl />
     <Company>Tilt Technologies</Company>
