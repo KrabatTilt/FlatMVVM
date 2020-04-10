@@ -17,8 +17,14 @@ namespace TT.FlatMVVM.Utils
             return new BindingProxy();
         }
 
+        /// <summary>
+        /// Data object dependency property
+        /// </summary>
         public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(object), typeof(BindingProxy), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Get set data object of binding proxy
+        /// </summary>
         public object Data
         {
             get => GetValue(DataProperty);

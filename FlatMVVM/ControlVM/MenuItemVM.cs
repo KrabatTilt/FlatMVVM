@@ -32,6 +32,10 @@
 
         #region Construction
 
+        /// <summary>
+        /// Create new instance of MenuItemVM with given header string.
+        /// </summary>
+        /// <param name="header">String header of menu item</param>
         public MenuItemVM(string header)
         {
             Header = header;
