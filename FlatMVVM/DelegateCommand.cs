@@ -13,8 +13,8 @@ namespace TT.FlatMVVM
 
         #region Fields
 
-        private readonly Action<object> _execute;
-        private readonly Predicate<object> _canExecute;
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
 
         #endregion
 
@@ -34,20 +34,11 @@ namespace TT.FlatMVVM
         #region Construction
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
-        /// </summary>
-        /// <param name="execute">The execute.</param>
-        public DelegateCommand(Action<object> execute)
-            : this(execute, null)
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="DelegateCommand"/>.
         /// </summary>
         /// <param name="execute">Action to execute.</param>
         /// <param name="canExecute">Predicate to check before execution.</param>
-        public DelegateCommand(Action<object> execute, Predicate<object> canExecute)
+        public DelegateCommand(Action execute, Func<bool> canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute), "Cannot be null.");
             _canExecute = canExecute;
@@ -62,19 +53,13 @@ namespace TT.FlatMVVM
         /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
         [DebuggerStepThrough]
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute == null || _canExecute(parameter);
-        }
+        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
 
         /// <summary>
         /// Defines the method to be called when the command is invoked.
         /// </summary>
         /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
-        public void Execute(object parameter)
-        {
-            _execute(parameter);
-        }
+        public void Execute(object parameter) => _execute();
 
         #endregion
 

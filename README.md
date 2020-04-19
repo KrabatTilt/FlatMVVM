@@ -1,15 +1,13 @@
 # FlatMVVM
-FlatMVVM is a simple MVVM framework for WPF and WPF netCore applications with focus on MVVM basics. 
-Therefore it does not provide its own DI container implementaion or other mechanics related to DI.
+FlatMVVM is a small MVVM framework supporting WPF netFramework and WPF netCore applications.
+Its focus is on the View - ViewModel part of MVVM by providing base class for ViewModel, ICommand implementation 
+and some often used IValueConverter implementations.
 
-[![flatmvvm MyGet Build Status](https://www.myget.org/BuildSource/Badge/flatmvvm?identifier=63c10aac-91d5-4311-bff7-59e86dafe8b8)](https://www.myget.org/)
-
-NuGet: [FlatMVVM](https://www.nuget.org/packages/TT.FlatMVVM/)
+[![Nuget](https://img.shields.io/nuget/v/TT.FlatMVVM?style=for-the-badge)](https://www.nuget.org/packages/TT.FlatMVVM/) 
 
 ### Features
-+ Supports Wpf net Core projects
 + ViewModel BaseClass implementing INotifyPrypertyChanged and INotifyDataErrorInfo
-+ ICommand as DelegateCommand
++ ICommand implemented as DelegateCommand
 + EventBinding of Commands via Microsoft.Xaml.Behaviors.Wpf based TriggerActionCommand
 + BindingProxy to access DataContext when not inherited
 + ValueConverter Markup Extension
@@ -28,9 +26,9 @@ Also the default namespace has changed from FlatMVVM to TT.FlatMVVM. When you up
 
 
 ## 1. Binding Basics
-### 1.1. Binding to Properties
-### 1.2. Binding to Commands
-### 1.3. Binding to Events
+### 1.1. Binding Properties
+### 1.2. Binding Commands
+### 1.3. Binding Events
 ## 2. Converter
 ## 3. Utils
 ### 3.1. UI
