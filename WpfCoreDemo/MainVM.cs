@@ -5,6 +5,7 @@ using System.Windows.Input;
 using TT.FlatMVVM;
 using TT.FlatMVVM.Utils;
 using WpfCoreDemo.Part1;
+using WpfCoreDemo.Part2;
 
 namespace WpfCoreDemo
 {
@@ -15,7 +16,7 @@ namespace WpfCoreDemo
 
         private ICommand _openExamppleCommand;
 
-        public ICommand OpenExample => _openExamppleCommand ?? (_openExamppleCommand = new DelegateCommand<string, object>(ExecuteOpenExample));
+        public ICommand OpenExample => _openExamppleCommand ??= new DelegateCommand<string>(ExecuteOpenExample);
 
         private void ExecuteOpenExample(string id)
         {
@@ -26,14 +27,12 @@ namespace WpfCoreDemo
             }
             else
             {
-                switch (id)
+                exampleWindow = id switch
                 {
-                    case "1":
-                        exampleWindow = new Part1Window { Owner = UI.MainWindow, ShowInTaskbar = false };
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(id), "");
-                }
+                    "1" => new Part1Window { Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new SimpleVM() },
+                    "2" => new Part2Window { Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new Part2VM() },
+                    _ => throw new ArgumentOutOfRangeException(nameof(id), $"Example id {id} dies not exist.")
+                };
 
                 exampleWindow.Closing += (sender, args) =>
                 {

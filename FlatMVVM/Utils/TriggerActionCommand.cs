@@ -51,11 +51,13 @@ namespace TT.FlatMVVM.Utils
             ICommand command = Command;
             object commandParameter = CommandParameter;
 
-            if (commandParameter != null)
-                parameter = commandParameter;
+            //if (commandParameter != null)
+            //    parameter = (parameter, commandParameter);
 
-            if (command?.CanExecute(parameter) == true)
-                command.Execute(parameter);
+            (object ap, object cp) parameters = (parameter, commandParameter);
+
+            if (command?.CanExecute(parameters) == true)
+                command.Execute(parameters);
         }
 
     }

@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Input;
 
 namespace TT.FlatMVVM
 {
 
     /// <summary>
-    /// Basic RelayCommand
+    /// 
     /// </summary>
-    public class DelegateCommand : ICommand
+    public abstract class CommandBase : ICommand
     {
-
-        #region Fields
-
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
-
-        #endregion
-
-        #region Events
 
         /// <summary>
         /// Occurs when changes occur that affect whether or not the command should execute.
@@ -28,6 +18,33 @@ namespace TT.FlatMVVM
             add => CommandManager.RequerySuggested += value;
             remove => CommandManager.RequerySuggested -= value;
         }
+
+        /// <summary>
+        /// Defines the conditions that determine whether the command can execute in its current state.
+        /// </summary>
+        /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
+        /// <returns>true if this command can be executed; otherwise, false.</returns>
+        public abstract bool CanExecute(object parameter);
+
+        /// <summary>
+        /// Defines the method to be called when the command is invoked.
+        /// </summary>
+        /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+        public abstract void Execute(object parameter);
+
+    }
+
+
+    /// <summary>
+    /// Basic RelayCommand
+    /// </summary>
+    public class DelegateCommand : CommandBase
+    {
+
+        #region Fields
+
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
 
         #endregion
 
@@ -52,14 +69,13 @@ namespace TT.FlatMVVM
         /// </summary>
         /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
-        [DebuggerStepThrough]
-        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
+        public override bool CanExecute(object parameter) => _canExecute == null || _canExecute();
 
         /// <summary>
         /// Defines the method to be called when the command is invoked.
         /// </summary>
         /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
-        public void Execute(object parameter) => _execute();
+        public override void Execute(object parameter) => _execute();
 
         #endregion
 
@@ -68,35 +84,26 @@ namespace TT.FlatMVVM
     /// <summary>
     /// RelayCommand with generic 'Execute' and 'CanExecute' command parameter types.
     /// </summary>
-    /// <typeparam name="TExParam">Type of execute command parameter.</typeparam>
+    /// <typeparam name="TParam">Type of execute command parameter.</typeparam>
     /// <typeparam name="TCExParam">Type of can execute command parameter.</typeparam>
-    public class DelegateCommand<TExParam, TCExParam> : ICommand
+    public class DelegateCommand<TParam> : CommandBase
     {
 
         #region Fields
 
-        private readonly Action<TExParam> _execute;
-        private readonly Predicate<TCExParam> _canExecute;
+        private readonly Action<TParam> _execute;
+        private readonly Func<TParam, bool> _canExecute;
 
         #endregion
 
         #region Construction
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
-        /// </summary>
-        /// <param name="execute">The execute.</param>
-        public DelegateCommand(Action<TExParam> execute)
-            : this(execute, null)
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="DelegateCommand"/>.
         /// </summary>
         /// <param name="execute">Action to execute.</param>
         /// <param name="canExecute">Predicate to check before execution.</param>
-        public DelegateCommand(Action<TExParam> execute, Predicate<TCExParam> canExecute)
+        public DelegateCommand(Action<TParam> execute, Func<TParam, bool> canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute), "Cannot be null.");
             _canExecute = canExecute;
@@ -111,28 +118,18 @@ namespace TT.FlatMVVM
         /// </summary>
         /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
-        [DebuggerStepThrough]
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
-            return _canExecute == null || _canExecute((TCExParam)parameter);
-        }
-
-        /// <summary>
-        /// Occurs when changes occur that affect whether or not the command should execute.
-        /// </summary>
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
+            return _canExecute == null || _canExecute((TParam)parameter);
         }
 
         /// <summary>
         /// Defines the method to be called when the command is invoked.
         /// </summary>
         /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
-        public void Execute(object parameter)
+        public override void Execute(object parameter)
         {
-            _execute((TExParam)parameter);
+            _execute((TParam)parameter);
         }
 
         #endregion

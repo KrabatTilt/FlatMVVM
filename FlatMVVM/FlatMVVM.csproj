@@ -21,6 +21,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Product>TT.FlatMVVM</Product>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,6 +33,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
