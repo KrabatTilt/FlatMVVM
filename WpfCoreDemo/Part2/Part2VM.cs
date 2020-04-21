@@ -1,5 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using TT.FlatMVVM;
 
 namespace WpfCoreDemo.Part2
@@ -12,7 +16,7 @@ namespace WpfCoreDemo.Part2
         private ICommand _singleParameterCommandCommand;
         private ICommand _mouseMoveCommandCommand;
 
-        
+
         public ICommand NoCanExecuteCheckCommand => _noCanExecuteCheckCommand ??= new DelegateCommand(ExecuteWindowLoadedCommand);
 
         private static void ExecuteWindowLoadedCommand()
@@ -47,17 +51,16 @@ namespace WpfCoreDemo.Part2
         }
 
 
-        
-        public ICommand MouseMoveCommand => _mouseMoveCommandCommand ??= new DelegateCommand<(MouseEventArgs, bool)>(ExecuteMouseMoveCommand, CanExecuteMouseMoveCommand);
+        public ICommand MouseMoveCommand => _mouseMoveCommandCommand ??= new DelegateCommand<MouseEventArgs, bool>(ExecuteMouseMoveCommand, CanExecuteMouseMoveCommand);
 
-        private static bool CanExecuteMouseMoveCommand((MouseEventArgs, bool) args)
+        private static bool CanExecuteMouseMoveCommand((MouseEventArgs ma, bool ischecked) values)
         {
-            return true;
+            return true;    
         }
 
-        private void ExecuteMouseMoveCommand((MouseEventArgs, bool) args)
+        private static void ExecuteMouseMoveCommand((MouseEventArgs args, bool ischecked) values)
         {
-            Debug.WriteLine(args.Item1.GetType().Name);
+            Debug.WriteLine($"EventType:{values.args.GetType().Name}, IsChecked: {values.ischecked}");
         }
 
 

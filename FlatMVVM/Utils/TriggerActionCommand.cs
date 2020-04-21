@@ -51,13 +51,12 @@ namespace TT.FlatMVVM.Utils
             ICommand command = Command;
             object commandParameter = CommandParameter;
 
-            //if (commandParameter != null)
-            //    parameter = (parameter, commandParameter);
+            //If an aditional command parameter is specified construct a tuple
+            if (commandParameter != null)
+                parameter = (parameter, commandParameter);
 
-            (object ap, object cp) parameters = (parameter, commandParameter);
-
-            if (command?.CanExecute(parameters) == true)
-                command.Execute(parameters);
+            if (command?.CanExecute(parameter) == true)
+                command.Execute(parameter);
         }
 
     }
