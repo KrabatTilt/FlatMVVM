@@ -1,4 +1,6 @@
-﻿namespace WpfCoreDemo.Part2
+﻿using System.Windows.Input;
+
+namespace WpfCoreDemo.Part2
 {
     /// <summary>
     /// Interaction logic for Part2Window.xaml
@@ -9,5 +11,6 @@
         {
             InitializeComponent();
         }
+
     }
 }

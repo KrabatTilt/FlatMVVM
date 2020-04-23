@@ -147,8 +147,8 @@ namespace TT.FlatMVVM
 
         #region Fields
 
-        private readonly Action<(TParam1, TParam2)> _execute;
-        private readonly Func<(TParam1, TParam2), bool> _canExecute;
+        private readonly Action<TParam1, TParam2> _execute;
+        private readonly Func<TParam1, TParam2, bool> _canExecute;
 
         #endregion
 
@@ -159,7 +159,7 @@ namespace TT.FlatMVVM
         /// </summary>
         /// <param name="execute">Action to execute.</param>
         /// <param name="canExecute">Predicate to check before execution.</param>
-        public DelegateCommand(Action<(TParam1, TParam2)> execute, Func<(TParam1, TParam2), bool> canExecute = null)
+        public DelegateCommand(Action<TParam1, TParam2> execute, Func<TParam1, TParam2, bool> canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute), "Cannot be null.");
             _canExecute = canExecute;
@@ -177,7 +177,7 @@ namespace TT.FlatMVVM
         public override bool CanExecute(object parameter)
         {
             (object item1, object item2) = ((object, object))parameter;
-            return _canExecute == null || _canExecute(((TParam1)item1, (TParam2)item2));
+            return _canExecute == null || _canExecute((TParam1)item1, (TParam2)item2);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace TT.FlatMVVM
         public override void Execute(object parameter)
         {
             (object item1, object item2) = ((object, object))parameter;
-            _execute(((TParam1)item1, (TParam2)item2));
+            _execute((TParam1)item1, (TParam2)item2);
         }
 
         #endregion

@@ -29,5 +29,12 @@
             </i:Interaction.Triggers>
             <TextBlock Text="Interact with me" />
         </Canvas>
+        <local:Part2UserControl Width="100" Height="100" HorizontalAlignment="Left">
+            <i:Interaction.Triggers>
+            <i:EventTrigger EventName="CustomEvent1">
+                <utils:TriggerActionCommand Command="{Binding CustomEventCommand}"/>
+            </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </local:Part2UserControl>
     </StackPanel>
 </Window>
