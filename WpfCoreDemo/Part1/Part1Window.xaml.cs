@@ -8,7 +8,6 @@
         public Part1Window()
         {
             InitializeComponent();
-            DataContext = new SimpleVM();
         }
     }
 }

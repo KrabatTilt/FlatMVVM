@@ -16,7 +16,7 @@ namespace WpfDemo
 
         private ICommand _openExamppleCommand;
 
-        public ICommand OpenExample => _openExamppleCommand ?? (_openExamppleCommand = new DelegateCommand<string, object>(ExecuteOpenExample));
+        public ICommand OpenExample => _openExamppleCommand ?? (_openExamppleCommand = new DelegateCommand<string>(ExecuteOpenExample));
 
         private void ExecuteOpenExample(string id)
         {
