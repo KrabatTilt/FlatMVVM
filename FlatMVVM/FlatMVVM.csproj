@@ -12,7 +12,7 @@
     <Copyright>KrabatTilt</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <Description>Simple MVVM framework for WPF applications</Description>
-    <PackageReleaseNotes>Added netcoreapp3.1 tergaet. Added enum binding support.</PackageReleaseNotes>
+    <PackageReleaseNotes>Improved DelegateCommand to handle EventArgs and CompandParameter simultaneously.</PackageReleaseNotes>
     <RepositoryType>Git</RepositoryType>
     <PackageIconUrl />
     <Company>Tilt Technologies</Company>
