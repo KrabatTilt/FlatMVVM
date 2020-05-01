@@ -24,6 +24,17 @@ Also the default namespace has changed from FlatMVVM to TT.FlatMVVM. When you up
 2. In xaml replace *xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"* by *xmlns:i="http://schemas.microsoft.com/xaml/behaviors"*
 3. In ViewModels replace using FlatMVV; by using TT.FlatMVVM
 
+## Migrate from 1.2.2 to 1.3.0:
+Version 1.3.0 changed the way parameters are passed into DelegateCommands.
+
+Parameterless Command in ViewModel
+``` cs
+new DelegateCommand(e => ExecuteExportData(), ce => CanExecuteExportData())
+```
+changes to
+``` cs
+new DelegateCommand(ExecuteExportData, CanExecuteExportData)
+```
 
 ## 1. Binding Basics
 ### 1.1. Binding Properties
