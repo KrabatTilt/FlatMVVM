@@ -44,3 +44,10 @@ new DelegateCommand(ExecuteExportData, CanExecuteExportData)
 ## 3. Utils
 ### 3.1. UI
 ### 3.2. Binding Proxy
+### 3.3 BooleanParameter
+BooleanParameter is a static type that can be used when static bool values should be defined in xaml code.
+
+**Example 1:** Using BooleanParameter to define a CommandParameter
+``` xml
+CommandParameter="{x:Static utils:BooleanParameter.False}"
+```
