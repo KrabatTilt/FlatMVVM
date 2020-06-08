@@ -11,6 +11,12 @@ namespace TT.FlatMVVM.Converter
     [ValueConversion(typeof(bool), typeof(bool))]
     public class InverseBooleanConverter : AConverterBase, IValueConverter
     {
+
+        /// <summary>
+        /// Get or set the value that is used when null is passed into the converter. Default = null 
+        /// </summary>
+        public bool? NullValue { get; set; } 
+
         /// <summary>Inverts a bool value.</summary>
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
@@ -19,13 +25,21 @@ namespace TT.FlatMVVM.Converter
         /// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType != typeof(bool) && targetType != typeof(bool?))
+            // Check for != object is done because when used in MultiBindings the target type is always object
+            if (targetType != typeof(object) && targetType != typeof(bool) && targetType != typeof(bool?))
                 throw new InvalidOperationException($"Target must be of type {typeof(bool)} or {typeof(bool?)} but is {targetType}.");
 
-            if (!(value is bool))
-                throw new InvalidOperationException($"Value must be of type {typeof(bool)}.");
-
-            return !(bool)value;
+            switch (value)
+            {
+                case bool boolean:
+                    return !boolean;
+                case null when NullValue.HasValue:
+                    return NullValue;
+                case null:
+                    return null;
+                default:
+                    throw new InvalidOperationException($"Value must be of type {typeof(bool)}.");
+            }
         }
 
         /// <summary>Inverts a bool value.</summary>
