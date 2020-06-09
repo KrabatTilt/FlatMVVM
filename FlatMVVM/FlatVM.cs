@@ -88,6 +88,58 @@ namespace TT.FlatMVVM
         #region Services
 
         /// <summary>
+        /// Sets the value of the target property.
+        /// </summary>
+        /// <typeparam name="TProperty">Type if the property</typeparam>
+        /// <param name="store">Reference to the backing field of the property that may be changed.</param>
+        /// <param name="value">The new value that shall be assigned to the property.</param>
+        /// <param name="propertyName">Name of changed property.</param>
+        /// <returns>Return true if property value has changed; otherwise false</returns>
+        /// <remarks>
+        /// The current approach is to check whether the value that should be assigned to the property is equal the current value.
+        /// If true this method returns false and no PropertyChanged event is raised. Else it assigns the new value, raises the PropertyChanged event and returns true. 
+        /// </remarks>
+        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<TProperty>.Default.Equals(store, value))
+                return false;
+
+            store = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        /// <summary>
+        /// Sets the value of the target property and additional properties.
+        /// </summary>
+        /// <typeparam name="TProperty">Type if the property</typeparam>
+        /// <param name="store">Reference to the backing field of the property that may be changed.</param>
+        /// <param name="value">The new value that shall be assigned to the property.</param>
+        /// <param name="propertyName">Name of changed property.</param>
+        /// <param name="linkedProperties">A list of additional property names for which the PropertyChanged event should be raised.</param>
+        /// <returns>Return true if property value has changed; otherwise false</returns>
+        /// <remarks>
+        /// The current approach is to check whether the value that should be assigned to the property is equal the current value.
+        /// If true this method returns false and no PropertyChanged event is raised. Else it assigns the new value, raises the PropertyChanged event and returns true. 
+        /// </remarks>
+        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, IEnumerable<string> linkedProperties, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<TProperty>.Default.Equals(store, value))
+                return false;
+
+            store = value;
+            OnPropertyChanged(propertyName);
+
+            if (linkedProperties == null) 
+                return true;
+
+            foreach (string linkedProperty in linkedProperties)
+                OnPropertyChanged(linkedProperty);
+
+            return true;
+        }
+
+        /// <summary>
         /// Gets the validation errors for a specified property or for the entire entity.
         /// </summary>
         /// <returns>The validation errors for the property or entity.</returns>
@@ -119,7 +171,7 @@ namespace TT.FlatMVVM
         /// <param name="propertyValidation">Property validation function.</param>
         private async void ValidatePropertyAsync(string propertyName, Func<ICollection<string>> propertyValidation)
         {
-            ICollection<string> errors = await Task.Run(() => propertyValidation.Invoke());
+            ICollection<string> errors = await Task.Run(propertyValidation.Invoke);
 
             bool changed;
             if (errors.Any())
