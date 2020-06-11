@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Simple Bindings" Height="450" Width="850"
         WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance part1:SimpleVM, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance part1:Part1VM, IsDesignTimeCreatable=True}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -27,7 +27,7 @@
                 <TextBlock Text="{Binding StaticText}" />
 
                 <!--Works only with modes OneTime or OneWay on readonly properties-->
-                <TextBox Text="{Binding StaticText, Mode=OneWay}" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding StaticText, Mode=OneWay}" HorizontalAlignment="Left" />
 
                 <!--Works with all modes on readonly properties-->
                 <Label Content="{Binding StaticText}" />
@@ -62,8 +62,37 @@
                 <TextBlock Text="{Binding DynamicText1}" />
 
                 <!--Works with all modes. USe UpdateSourceTrigger to change property on each character entered. -->
-                <TextBox Text="{Binding DynamicText2,UpdateSourceTrigger=PropertyChanged, Delay=100}" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding DynamicText2,UpdateSourceTrigger=PropertyChanged, Delay=100}"
+                         HorizontalAlignment="Left" />
                 <TextBlock Text="{Binding DynamicText2}" />
+
+                <Separator Margin="5" />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="First Name" />
+                    <TextBox Grid.Row="0" Grid.Column="1"
+                             Text="{Binding FistName, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Last Name" />
+                    <TextBox Grid.Row="1" Grid.Column="1"
+                             Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                             Text="{Binding FullName, Mode=OneWay}" TextAlignment="Center"/>
+                    <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                             Text="{Binding Email, Mode=OneWay}" TextAlignment="Center"/>
+
+                </Grid>
 
             </StackPanel>
         </GroupBox>

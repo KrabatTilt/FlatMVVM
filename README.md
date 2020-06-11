@@ -6,7 +6,7 @@ and some often used IValueConverter implementations.
 [![Nuget](https://img.shields.io/nuget/v/TT.FlatMVVM?style=for-the-badge)](https://www.nuget.org/packages/TT.FlatMVVM/) 
 
 ### Features
-+ ViewModel BaseClass implementing INotifyPrypertyChanged and INotifyDataErrorInfo
++ ViewModel BaseClass implementing INotifyPropertyChanged and INotifyDataErrorInfo
 + ICommand implemented as DelegateCommand
 + EventBinding of Commands via Microsoft.Xaml.Behaviors.Wpf based TriggerActionCommand
 + BindingProxy to access DataContext when not inherited
@@ -28,19 +28,115 @@ Also the default namespace has changed from FlatMVVM to TT.FlatMVVM. When you up
 Version 1.3.0 changed the way parameters are passed into DelegateCommands.
 
 Parameterless Command in ViewModel
-``` cs
+``` csharp
 new DelegateCommand(e => ExecuteExportData(), ce => CanExecuteExportData())
 ```
 changes to
-``` cs
+``` csharp
 new DelegateCommand(ExecuteExportData, CanExecuteExportData)
 ```
 
 ## 1. Binding Basics
 ### 1.1. Binding Properties
+
+**Example1:** Binding content and IsEnabled state of a button to properties in a viewmodel showing two different styles of property setter implementation.
+
+``` xml
+<Button Content="{Binding Content1}" IsEnabled="{Binding Bool1}" />
+```
+
+``` csharp
+internal class ViewModel : FlatVM
+{
+    private bool _bool1;
+    private string _content1;
+
+    public bool Bool1
+    {
+        get => _bool1;
+        set
+        {
+            if (value == _bool1)
+                return;
+            _bool1 = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Content1
+    {
+        get => _content1;
+        set => SetProperty(ref _content1, value);
+    }
+
+    public ViewModel()
+    {
+        Content1 = "Try to click me";
+
+        _timer = new Timer(1000);
+        _timer.Elapsed += (sender, args) => { Bool1 = !Bool1; };
+        _timer.Start();
+    }
+}
+```
+In this example two different options are shown to implement the property setter. For Bool1 property the classic OnPropertyChanged notation is used. Doing it this way you have full control over the setter implementation. But in most cases the setter implementation of a viewmodel property is like doing the equality check, updating the backing field if check evaluated to false and then raising the PropertyChanged event. To shorten that Content1 property uses the SetProperty() method which does exactly the basic operations to update a property. FlatMVVM offers both possibilities.
+
+**Example2:** Binding content of TextBox and TextBlock controls to string properties. Updating further properties
+
+``` csharp
+public string FistName
+{
+    get => _fistName;
+    set => SetProperty(ref _fistName, value, new[] { nameof(FullName), nameof(Email) /*add more properties here*/ });
+}
+
+public string LastName
+{
+    get => _lastName;
+    set => SetProperty(ref _lastName, value, new[] { nameof(FullName), nameof(Email) /*add more properties here*/ });
+}
+
+public string FullName => $"{FistName} {LastName}";
+
+public string Email => $"{FistName.ToLower()}.{LastName.ToLower()}@flatmvvm.com";
+```
+In this example FirstName and LastName properties are read/write properties that have dependent readonly properties FullName and Email. The SetProperty notation lets you update these properties by providing a string array of properties that should also be updated. Using nameof() this can easily be achieved while not relying on hardcoded strings. 
+
 ### 1.2. Binding Commands
 ### 1.3. Binding Events
 ## 2. Converter
+### 2.1 ValueConverter
+#### InverseBooleanConverter
+
+Use InverseBooleanConverter to bind to bool properties and invert their value when propagated to binding target. When binding to nullable bool properties the converter allows to specify a NullValue.
+
+**Example1:**
+``` xml
+<Button IsEnabled="{Binding BoolProperty, Converter={converter:InverseBooleanConverter}}" />
+```
+
+**Example2:**
+``` xml
+ <Button IsEnabled="{Binding NullableBoolProperty, Converter={converter:InverseBooleanConverter NullValue=False}}" />
+```
+
+### 2.2 MultiValueConverter
+#### MultiBooleanConverter
+
+MultiBooleanConverter allows to link together multiple bool properties when using a MultiBinding. Its Operators property is used to define the operator.
+
+**Example1:** Using MultiBooleanConverter to link two bool properties in a MultiBinding.
+``` xml
+<Button Content="MultiBinding" VerticalAlignment="Top">
+    <Button.IsEnabled>
+        <MultiBinding Converter="{converter:MultiBooleanConverter Operators=A}">
+            <Binding Path="Bool1" Converter="{converter:InverseBooleanConverter}" />
+            <Binding Path="Bool2" />
+        </MultiBinding>
+    </Button.IsEnabled>
+</Button>
+```
+
 ## 3. Utils
 ### 3.1. UI
 ### 3.2. Binding Proxy
