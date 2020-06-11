@@ -2,9 +2,13 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PackageId>TT.FlatMVVM</PackageId>
-    <Version>1.3.1</Version>
+    <Version>1.4.0</Version>
     <Authors>KrabatTilt</Authors>
     <PackageProjectUrl>https://github.com/KrabatTilt/FlatMVVM</PackageProjectUrl>
     <RepositoryUrl>https://github.com/KrabatTilt/FlatMVVM</RepositoryUrl>
@@ -12,7 +16,7 @@
     <Copyright>KrabatTilt</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <Description>Simple MVVM framework for WPF applications</Description>
-    <PackageReleaseNotes>Added BooleanParameter helper type</PackageReleaseNotes>
+    <PackageReleaseNotes>BaseViewModel and command update. Added more converters</PackageReleaseNotes>
     <RepositoryType>Git</RepositoryType>
     <PackageIconUrl />
     <Company>Tilt Technologies</Company>
@@ -20,7 +24,10 @@
     <RootNamespace>TT.FlatMVVM</RootNamespace>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Product>TT.FlatMVVM</Product>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IncludeSource>true</IncludeSource>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
