@@ -28,6 +28,7 @@
         <Button Content="Part 1" Command="{Binding OpenExample}" CommandParameter="1" />
         <Button Content="Part 2" Command="{Binding OpenExample}" CommandParameter="2" />
         <Button Content="Part 3" Command="{Binding OpenExample}" CommandParameter="3" />
+        <Button Content="Part 4" Command="{Binding OpenExample}" CommandParameter="4" />
 
     </ListView>
 </Window>

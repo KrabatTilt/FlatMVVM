@@ -100,11 +100,70 @@ public string FullName => $"{FistName} {LastName}";
 
 public string Email => $"{FistName.ToLower()}.{LastName.ToLower()}@flatmvvm.com";
 ```
-In this example FirstName and LastName properties are read/write properties that have dependent readonly properties FullName and Email. The SetProperty notation lets you update these properties by providing a string array of properties that should also be updated. Using nameof() this can easily be achieved while not relying on hardcoded strings. 
+In this example FirstName and LastName properties are read/write properties that have dependent readonly properties FullName and Email. The SetProperty notation lets you update these properties by providing a string array of properties that should also be updated. Using nameof() this can easily be achieved while not relying on hard coded strings. 
 
 ### 1.2. Binding Commands
+
+**Example1:** Binding *Click Command* of a button to a command defined in ViewModel.
+
+XAML:
+```xml
+<Button Content="ClickButton" Command="{Binding SimpleClick}" />
+```
+ViewModel:
+```csharp
+private ICommand _simpleClickCommand;
+
+public ICommand SimpleClick => _simpleClickCommand ??= new DelegateCommand(ExecuteSimpleClickCommand);
+
+private void ExecuteSimpleClickCommand()
+{
+    Debug.WriteLine("Simple Click Command");
+}
+```
+**Note:** The Command in this example is initialized lazy in terms of when the ViewModel is created no instance of the DelegateCommand is created. But when the View is loaded the Command property gets evaluated and an instance of DelegateCommand is created. So it is not created on the first call triggered by the user.
+
 ### 1.3. Binding Events
+
+**Example1:** Binding to *Loaded Event* of a Window to a command defined in ViewModel. This is realized using *Microsoft.Xaml.Behaviors.Wpf* library which can be used by adding *xmlns:b="http://schemas.microsoft.com/xaml/behaviors"* namespace to the Window.
+
+XAML:
+```xml
+<Window x:Class="WpfCoreDemo.Part4.Part4Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfCoreDemo.Part4"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:utils="clr-namespace:TT.FlatMVVM.Utils;assembly=TT.FlatMVVM"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:Part4VM}"
+        Title="Commands" Height="450" Width="800">
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <utils:TriggerActionCommand Command="{Binding WindowLoaded}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+</Window>
+```
+ViewModel:
+```csharp
+private ICommand _windowLoadedCommand;
+
+public ICommand WindowLoaded => _windowLoadedCommand ??= new DelegateCommand<RoutedEventArgs>(ExecuteWindowLoaded);
+
+private void ExecuteWindowLoaded(RoutedEventArgs args)
+{
+    Debug.WriteLine($"{((Window)args.OriginalSource).Title} loaded.");
+}
+```
+**Note:** This example passes the *RoutedEventArgs* of the Window Loaded event to the command to demonstrate how event parameter can be passed to commands. If the event arguments are not needed, remove the TypeParameter from DelegateCommand and corresponding command delegates. 
+
 ## 2. Converter
+
+FlatMVVM provides implementations of some binding converter that may be used very often.
+
 ### 2.1 ValueConverter
 #### InverseBooleanConverter
 

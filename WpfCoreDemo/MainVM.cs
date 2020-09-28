@@ -7,6 +7,7 @@ using TT.FlatMVVM.Utils;
 using WpfCoreDemo.Part1;
 using WpfCoreDemo.Part2;
 using WpfCoreDemo.Part3;
+using WpfCoreDemo.Part4;
 
 namespace WpfCoreDemo
 {
@@ -33,6 +34,7 @@ namespace WpfCoreDemo
                     "1" => new Part1Window { Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new Part1VM() },
                     "2" => new Part2Window { Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new Part2VM() },
                     "3" => new Part3Window { Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new Part3VM() },
+                    "4" => new Part4Window(){Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new Part4VM() },
                     _ => throw new ArgumentOutOfRangeException(nameof(id), $"Example id {id} dies not exist.")
                 };
 
