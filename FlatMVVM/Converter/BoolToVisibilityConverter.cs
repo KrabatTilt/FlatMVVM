@@ -42,7 +42,7 @@ namespace TT.FlatMVVM.Converter
         }
 
         /// <summary>
-        /// Convaert Visibility to bool
+        /// Convert Visibility to bool
         /// </summary>
         /// <param name="value">Source value of type Visibility.</param>
         /// <param name="targetType">Target value of type bool.</param>
