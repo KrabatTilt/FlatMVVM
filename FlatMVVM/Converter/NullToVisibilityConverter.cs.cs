@@ -39,6 +39,7 @@ namespace TT.FlatMVVM.Converter
             return (Inverse ? value != null : value == null) ? InvisibleTarget : Visibility.Visible;
         }
 
+        /// <inheritdoc />
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

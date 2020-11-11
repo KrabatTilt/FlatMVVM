@@ -42,6 +42,7 @@ namespace TT.FlatMVVM.Converter
             return b ? TrueBrush : FalseBrush;
         }
 
+        /// <inheritdoc />
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
