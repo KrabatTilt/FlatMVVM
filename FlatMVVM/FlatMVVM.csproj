@@ -16,7 +16,7 @@
     <Copyright>KrabatTilt</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <Description>Simple MVVM framework for WPF applications</Description>
-    <PackageReleaseNotes>BaseViewModel and command update. Added more converters</PackageReleaseNotes>
+    <PackageReleaseNotes>Added Validation Support to SetProperty method.</PackageReleaseNotes>
     <RepositoryType>Git</RepositoryType>
     <PackageIconUrl />
     <Company>Tilt Technologies</Company>

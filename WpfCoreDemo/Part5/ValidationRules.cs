@@ -16,8 +16,6 @@ namespace WpfCoreDemo.Part5
             return validationResult;
         }
 
-        public static IEnumerable<string>
-
         public static IEnumerable<string> BadValidationRule()
         {
             throw new Exception("Shiat");
