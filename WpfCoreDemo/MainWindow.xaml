@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCoreDemo"
         mc:Ignorable="d"
-        Title="FlatMVVM Wpf Core Examples" Height="400" Width="380"
+        Title="FlatMVVM Wpf Core Examples" Height="400" Width="600"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance local:MainVM, IsDesignTimeCreatable = True}">
 
     <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
         <ListView.Resources>
             <Style TargetType="Button">
-                <Setter Property="Width" Value="100" />
+                <Setter Property="Width" Value="Auto" />
                 <Setter Property="Height" Value="100" />
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="FontWeight" Value="Bold" />
@@ -25,10 +25,11 @@
             </ItemsPanelTemplate>
         </ListView.ItemsPanel>
 
-        <Button Content="Part 1" Command="{Binding OpenExample}" CommandParameter="1" />
-        <Button Content="Part 2" Command="{Binding OpenExample}" CommandParameter="2" />
-        <Button Content="Part 3" Command="{Binding OpenExample}" CommandParameter="3" />
-        <Button Content="Part 4" Command="{Binding OpenExample}" CommandParameter="4" />
+        <Button Content="Property Bindings" Command="{Binding OpenExample}" CommandParameter="1" />
+        <Button Content="Event Bindings" Command="{Binding OpenExample}" CommandParameter="2" />
+        <Button Content="Converter" Command="{Binding OpenExample}" CommandParameter="3" />
+        <Button Content="Commands" Command="{Binding OpenExample}" CommandParameter="4" />
+        <Button Content="Input Validation" Command="{Binding OpenExample}" CommandParameter="5" />
 
     </ListView>
 </Window>

@@ -18,7 +18,7 @@ namespace TT.FlatMVVM
 
         #region Fields
 
-        private readonly ConcurrentDictionary<string, ICollection<string>> _validationErrors = new ConcurrentDictionary<string, ICollection<string>>();
+        private readonly ConcurrentDictionary<string, IEnumerable<string>> _validationErrors = new ConcurrentDictionary<string, IEnumerable<string>>();
 
         #endregion
 
@@ -44,17 +44,6 @@ namespace TT.FlatMVVM
         }
 
         /// <summary>
-        /// Call to raise PropertyChanged event and validate property.
-        /// </summary>
-        /// <param name="propertyValidation">Delegate for property validation.</param>
-        /// <param name="propertyName">Name of changed property.</param>
-        protected virtual void OnPropertyChanged(Func<ICollection<string>> propertyValidation, [CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            ValidatePropertyAsync(propertyName, propertyValidation);
-        }
-
-        /// <summary>
         /// Call to raise PropertyChanged event.
         /// </summary>
         /// <param name="sender">Name of changed property.</param>
@@ -68,6 +57,7 @@ namespace TT.FlatMVVM
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
 
         /// <summary>
         /// Call to raise ErrorsChanged event.
@@ -110,6 +100,30 @@ namespace TT.FlatMVVM
         }
 
         /// <summary>
+        /// Sets the value of the target property.
+        /// </summary>
+        /// <typeparam name="TProperty">Type if the property</typeparam>
+        /// <param name="store">Reference to the backing field of the property that may be changed.</param>
+        /// <param name="value">The new value that shall be assigned to the property.</param>
+        /// <param name="validationRule">Property validation rule.</param>
+        /// <param name="propertyName">Name of changed property.</param>
+        /// <returns>Return true if property value has changed; otherwise false</returns>
+        /// <remarks>
+        /// The current approach is to check whether the value that should be assigned to the property is equal the current value.
+        /// If true this method returns false and no PropertyChanged event is raised. Else it assigns the new value, raises the PropertyChanged event and returns true. 
+        /// </remarks>
+        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, Func<TProperty, IEnumerable<string>> validationRule, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<TProperty>.Default.Equals(store, value))
+                return false;
+
+            store = value;
+            ValidatePropertyAsync(propertyName, value, validationRule);
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        /// <summary>
         /// Sets the value of the target property and additional properties.
         /// </summary>
         /// <typeparam name="TProperty">Type if the property</typeparam>
@@ -130,10 +144,48 @@ namespace TT.FlatMVVM
             store = value;
             OnPropertyChanged(propertyName);
 
-            if (linkedProperties == null) 
+            if (linkedProperties == null)
                 return true;
 
             foreach (string linkedProperty in linkedProperties)
+                OnPropertyChanged(linkedProperty);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Sets the value of the target property and additional properties.
+        /// </summary>
+        /// <typeparam name="TProperty">Type if the property</typeparam>
+        /// <param name="store">Reference to the backing field of the property that may be changed.</param>
+        /// <param name="value">The new value that shall be assigned to the property.</param>
+        /// <param name="validationRule">Property validation rule.</param>
+        /// <param name="propertyName">Name of changed property.</param>
+        /// <param name="linkedProperties">A list of additional property names for which the PropertyChanged event should be raised.</param>
+        /// <returns>Return true if property value has changed; otherwise false</returns>
+        /// <remarks>
+        /// The current approach is to check whether the value that should be assigned to the property is equal the current value.
+        /// If true this method returns false and no PropertyChanged event is raised. Else it assigns the new value, raises the PropertyChanged event and returns true. 
+        /// </remarks>
+        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, IEnumerable<string> linkedProperties, Func<TProperty, IEnumerable<string>> validationRule, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<TProperty>.Default.Equals(store, value))
+                return false;
+
+            store = value;
+            ValidatePropertyAsync(propertyName, value, validationRule);
+            OnPropertyChanged(propertyName); //Update and validate main property
+
+            if (linkedProperties == null)
+                return true;
+
+            /*
+             * Current state:
+             * - linked properties are not validated
+             * - update of linked properties is performed even when main property validation detects error
+             * - Exception thrown by bad validation rule bubbles up
+             */
+            foreach (string linkedProperty in linkedProperties) //Update linked properties
                 OnPropertyChanged(linkedProperty);
 
             return true;
@@ -168,20 +220,21 @@ namespace TT.FlatMVVM
         /// Validates a property asynchronously on background thread pool.
         /// </summary>
         /// <param name="propertyName">Name of property to validate.</param>
-        /// <param name="propertyValidation">Property validation function.</param>
-        private async void ValidatePropertyAsync(string propertyName, Func<ICollection<string>> propertyValidation)
+        /// <param name="value">Value that should be validated.</param>
+        /// <param name="validationRule">Property validation function.</param>
+        protected async void ValidatePropertyAsync<TProperty>(string propertyName, TProperty value, Func<TProperty, IEnumerable<string>> validationRule)
         {
-            ICollection<string> errors = await Task.Run(propertyValidation.Invoke);
+            IEnumerable<string> validationResult = await Task.Run(() => validationRule(value));
 
             bool changed;
-            if (errors.Any())
+            if (validationResult.Any())
             {
-                _validationErrors[propertyName] = errors;
+                _validationErrors[propertyName] = validationResult;
                 changed = true;
             }
             else
             {
-                changed = _validationErrors.TryRemove(propertyName, out errors);
+                changed = _validationErrors.TryRemove(propertyName, out validationResult);
             }
 
             // Raise event only when there were changes
