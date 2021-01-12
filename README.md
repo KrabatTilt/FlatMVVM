@@ -1,5 +1,5 @@
 # FlatMVVM
-FlatMVVM is a small MVVM framework supporting WPF netFramework and WPF netCore applications.
+FlatMVVM is a small MVVM framework supporting net45 - net48, netcoreapp3.1 and net5.0-windows applications.
 Its focus is on the View - ViewModel part of MVVM by providing base class for ViewModel, ICommand implementation 
 and some often used IValueConverter implementations.
 
@@ -11,10 +11,6 @@ and some often used IValueConverter implementations.
 + EventBinding of Commands via Microsoft.Xaml.Behaviors.Wpf based TriggerActionCommand
 + BindingProxy to access DataContext when not inherited
 + ValueConverter Markup Extension
-
-### TODO
-+ Binding to readonly DependencyProperties
-+ Async DelegateCommand implementation
 
 
 ## Migrate from 1.0.1 to 1.1.0:
