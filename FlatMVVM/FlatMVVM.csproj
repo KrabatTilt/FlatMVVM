@@ -7,7 +7,7 @@
 
   <PropertyGroup>
     <PackageId>TT.FlatMVVM</PackageId>
-    <Version>1.4.1</Version>
+    <Version>1.4.2</Version>
     <Authors>KrabatTilt</Authors>
     <PackageProjectUrl>https://github.com/KrabatTilt/FlatMVVM</PackageProjectUrl>
     <RepositoryUrl>https://github.com/KrabatTilt/FlatMVVM</RepositoryUrl>
