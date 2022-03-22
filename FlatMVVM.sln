@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.352
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlatMVVM", "FlatMVVM\FlatMVVM.csproj", "{5C60DA8D-0216-4E51-998D-8C3B6463B247}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfDemo", "WpfDemo\WpfDemo.csproj", "{C37A6157-9A37-4A03-BC3B-C49C3BD4099D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{DE052E59-6CBE-4C5E-BEE7-7FF413597534}"
 	ProjectSection(SolutionItems) = preProject
@@ -18,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "readme", "readme", "{8A67A9
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCoreDemo", "WpfCoreDemo\WpfCoreDemo.csproj", "{A6D1D2D3-F195-44E1-9CAF-F50CF2B73DDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfCoreDemo", "WpfCoreDemo\WpfCoreDemo.csproj", "{A6D1D2D3-F195-44E1-9CAF-F50CF2B73DDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,10 +28,6 @@ Global
 		{5C60DA8D-0216-4E51-998D-8C3B6463B247}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C60DA8D-0216-4E51-998D-8C3B6463B247}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C60DA8D-0216-4E51-998D-8C3B6463B247}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C37A6157-9A37-4A03-BC3B-C49C3BD4099D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C37A6157-9A37-4A03-BC3B-C49C3BD4099D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C37A6157-9A37-4A03-BC3B-C49C3BD4099D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C37A6157-9A37-4A03-BC3B-C49C3BD4099D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6D1D2D3-F195-44E1-9CAF-F50CF2B73DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A6D1D2D3-F195-44E1-9CAF-F50CF2B73DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6D1D2D3-F195-44E1-9CAF-F50CF2B73DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU

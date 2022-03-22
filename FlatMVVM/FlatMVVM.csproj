@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netcoreapp3.1;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net48;net5.0-windows;net6.0-windows</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>TT.FlatMVVM</PackageId>
-    <Version>1.4.2</Version>
+    <Version>1.5.0</Version>
     <Authors>KrabatTilt</Authors>
     <PackageProjectUrl>https://github.com/KrabatTilt/FlatMVVM</PackageProjectUrl>
     <RepositoryUrl>https://github.com/KrabatTilt/FlatMVVM</RepositoryUrl>
@@ -33,7 +33,7 @@
     <None Remove="FlatMVVM.v3.ncrunchproject" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
 
 </Project>

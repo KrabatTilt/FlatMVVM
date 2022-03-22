@@ -1,5 +1,5 @@
 # FlatMVVM
-FlatMVVM is a small MVVM framework supporting net45 - net48, netcoreapp3.1 and net5.0-windows applications.
+FlatMVVM is a small MVVM framework supporting net48, net5.0-windows and net6.0-windows WPF applications.
 Its focus is on the View - ViewModel part of MVVM by providing base class for ViewModel, ICommand implementation 
 and some often used IValueConverter implementations.
 
