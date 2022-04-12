@@ -1,10 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 using TT.FlatMVVM;
 
 namespace WpfCoreDemo.Part2
 {
-    internal class Part2VM : FlatVM
+    internal class Part2VM : FlatVM, IDemoCase
     {
 
         private ICommand _noCanExecuteCheckCommand;
@@ -12,6 +14,14 @@ namespace WpfCoreDemo.Part2
         private ICommand _singleParameterCommandCommand;
         private ICommand _mouseMoveCommandCommand;
         private ICommand _customEventCommandCommand;
+
+
+        public Part2VM()
+        {
+            Name = "Event Bindings";
+            Templates = new ResourceDictionary { Source = new Uri("/WpfCoreDemo;component/Part2/Part2DataTemplates.xaml", UriKind.RelativeOrAbsolute) };
+        }
+
 
         public ICommand NoCanExecuteCheckCommand => _noCanExecuteCheckCommand ??= new DelegateCommand(ExecuteWindowLoadedCommand);
 
@@ -73,5 +83,7 @@ namespace WpfCoreDemo.Part2
         }
 
 
+        public string Name { get; }
+        public ResourceDictionary Templates { get; }
     }
 }

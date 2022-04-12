@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace TT.FlatMVVM.Converter
@@ -50,16 +51,17 @@ namespace TT.FlatMVVM.Converter
             var boolValues = new bool[values.Length];
             for (int i = 0; i < values.Length; i++)
             {
-                switch (values[i])
+                if (values[i] == null || values[i] == DependencyProperty.UnsetValue)
                 {
-                    case null:
-                        boolValues[i] = NullValue;
-                        break;
-                    case bool boolValue:
-                        boolValues[i] = boolValue;
-                        break;
-                    default:
-                        throw new InvalidOperationException($"Parameter provided must be if type {typeof(bool)} or {typeof(bool?)} but is {values[i].GetType().Name}");
+                    boolValues[i] = NullValue;
+                }
+                else if (values[i] is bool boolValue)
+                {
+                    boolValues[i] = boolValue;
+                }
+                else
+                {
+                    throw new InvalidOperationException($"Parameter provided must be of type {typeof(bool)} or {typeof(bool?)} but is {values[i].GetType().Name}");
                 }
             }
 

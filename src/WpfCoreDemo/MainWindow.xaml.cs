@@ -9,7 +9,6 @@ namespace WpfCoreDemo
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainVM();
         }
     }
 }

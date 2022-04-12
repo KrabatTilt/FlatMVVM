@@ -5,31 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCoreDemo"
         mc:Ignorable="d"
-        Title="FlatMVVM Wpf Core Examples" Height="400" Width="600"
+        Title="FlatMVVM Wpf Examples" 
+        Width="1920" Height="1080" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance local:MainVM, IsDesignTimeCreatable = True}">
+<Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="200" />
+        <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
 
-    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-        <ListView.Resources>
-            <Style TargetType="Button">
-                <Setter Property="Width" Value="Auto" />
-                <Setter Property="Height" Value="100" />
-                <Setter Property="FontSize" Value="20" />
-                <Setter Property="FontWeight" Value="Bold" />
-                <Setter Property="Margin" Value="5" />
-            </Style>
-        </ListView.Resources>
-        <ListView.ItemsPanel>
-            <ItemsPanelTemplate>
-                <WrapPanel IsItemsHost="True" />
-            </ItemsPanelTemplate>
-        </ListView.ItemsPanel>
+    <ListView Grid.Column="0"
+              ItemsSource="{Binding DemoCases}"
+              DisplayMemberPath="Name"
+              SelectedItem="{Binding ActiveView}"/>
 
-        <Button Content="Property Bindings" Command="{Binding OpenExample}" CommandParameter="1" />
-        <Button Content="Event Bindings" Command="{Binding OpenExample}" CommandParameter="2" />
-        <Button Content="Converter" Command="{Binding OpenExample}" CommandParameter="3" />
-        <Button Content="Commands" Command="{Binding OpenExample}" CommandParameter="4" />
-        <Button Content="Input Validation" Command="{Binding OpenExample}" CommandParameter="5" />
+    <ContentControl Grid.Column="1" 
+                    Content="{Binding ActiveView}"
+                    ContentTemplateSelector="{Binding DemoCaseContentTemplateSelector}"/>
 
-    </ListView>
+</Grid>
 </Window>

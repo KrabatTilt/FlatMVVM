@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using TT.FlatMVVM;
 
 namespace WpfCoreDemo.Part4
 {
-    internal class Part4VM : FlatVM
+    internal class Part4VM : FlatVM, IDemoCase
     {
 
         private ICommand _blockedCanExecuteClickCommand;
@@ -31,6 +32,9 @@ namespace WpfCoreDemo.Part4
 
         public Part4VM()
         {
+            Name = "Commands";
+            Templates = new ResourceDictionary { Source = new Uri("/WpfCoreDemo;component/Part4/Part4DataTemplates.xaml", UriKind.RelativeOrAbsolute) };
+
             ParamText = "Change me";
         }
 
@@ -77,9 +81,11 @@ namespace WpfCoreDemo.Part4
 
         private void ExecuteWindowLoaded(RoutedEventArgs args)
         {
-            Debug.WriteLine($"{((Window)args.OriginalSource).Title} loaded.");
+            Debug.WriteLine($"{((UserControl)args.OriginalSource).Name} loaded.");
         }
 
 
+        public string Name { get; }
+        public ResourceDictionary Templates { get; }
     }
 }

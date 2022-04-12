@@ -1,4 +1,6 @@
-﻿using System.Timers;
+﻿using System;
+using System.Timers;
+using System.Windows;
 using TT.FlatMVVM;
 
 namespace WpfCoreDemo.Part1
@@ -7,7 +9,7 @@ namespace WpfCoreDemo.Part1
     /// <summary>
     /// Simple ViewModel showing static and dynamic binding
     /// </summary>
-    internal class Part1VM : FlatVM
+    internal class Part1VM : FlatVM, IDemoCase
     {
         private string _dynamicText1;
         private string _dynamicText2;
@@ -51,6 +53,10 @@ namespace WpfCoreDemo.Part1
 
         public Part1VM()
         {
+            Name = "Bindings";
+            Templates = new ResourceDictionary { Source = new Uri("/WpfCoreDemo;component/Part1/Part1DataTemplates.xaml", UriKind.RelativeOrAbsolute) };
+
+
             StaticText = "Hello";
 
             StaticTextArray = new string[5];
@@ -70,5 +76,8 @@ namespace WpfCoreDemo.Part1
             LastName = "Text";
         }
 
+        public string Name { get; }
+
+        public ResourceDictionary Templates { get; }
     }
 }

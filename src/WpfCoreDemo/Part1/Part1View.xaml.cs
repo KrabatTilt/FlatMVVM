@@ -1,11 +1,11 @@
 ﻿namespace WpfCoreDemo.Part1
 {
     /// <summary>
-    /// Interaction logic for Part1Window.xaml
+    /// Interaction logic for Part1View.xaml
     /// </summary>
-    public partial class Part1Window
+    public partial class Part1View
     {
-        public Part1Window()
+        public Part1View()
         {
             InitializeComponent();
         }

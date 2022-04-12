@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:part5="clr-namespace:WpfCoreDemo.Part5">
+
+    <DataTemplate x:Key="Part5_DemoCaseTemplate"
+                  DataType="part5:Part5VM">
+       <part5:Part5View />
+    </DataTemplate>
+
+</ResourceDictionary>

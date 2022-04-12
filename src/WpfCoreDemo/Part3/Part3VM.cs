@@ -1,9 +1,11 @@
-﻿using System.Timers;
+﻿using System;
+using System.Timers;
+using System.Windows;
 using TT.FlatMVVM;
 
 namespace WpfCoreDemo.Part3
 {
-    internal class Part3VM : FlatVM
+    internal class Part3VM : FlatVM , IDemoCase
     {
         private bool _bool1;
         private bool _bool2;
@@ -49,10 +51,16 @@ namespace WpfCoreDemo.Part3
 
         public Part3VM()
         {
+            Name = "Boolean Value Converter";
+            Templates = new ResourceDictionary { Source = new Uri("/WpfCoreDemo;component/Part3/Part3DataTemplates.xaml", UriKind.RelativeOrAbsolute) };
+
             var timer = new Timer(1000);
             timer.Elapsed += (sender, args) => { Bool3 = !Bool3; };
             timer.Start();
         }
 
+        public string Name { get; }
+
+        public ResourceDictionary Templates { get; }
     }
 }

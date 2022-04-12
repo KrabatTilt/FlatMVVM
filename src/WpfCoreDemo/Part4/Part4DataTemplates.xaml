@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:part4="clr-namespace:WpfCoreDemo.Part4"
+                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:utils="clr-namespace:TT.FlatMVVM.Utils;assembly=TT.FlatMVVM">
+
+    <DataTemplate x:Key="Part1_DemoCaseTemplate"
+                  DataType="part4:Part4VM">
+        <part4:Part4View />
+    </DataTemplate>
+
+</ResourceDictionary>

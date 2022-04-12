@@ -1,8 +1,10 @@
-﻿using TT.FlatMVVM;
+﻿using System;
+using System.Windows;
+using TT.FlatMVVM;
 
 namespace WpfCoreDemo.Part5
 {
-    internal class Part5VM : FlatVM
+    internal class Part5VM : FlatVM , IDemoCase
     {
 
         private string _stringInput1;
@@ -25,6 +27,16 @@ namespace WpfCoreDemo.Part5
             get => _inputString2;
             set => SetProperty(ref _inputString2, value, new []{nameof(Linked1), nameof(Linked2)}, ValidationRules.ValidateNoNumbers);
         }
-       
+
+        public Part5VM()
+        {
+            Name = "Input Validation";
+            Templates = new ResourceDictionary { Source = new Uri("/WpfCoreDemo;component/Part5/Part5DataTemplates.xaml", UriKind.RelativeOrAbsolute) };
+
+        }
+
+        public string Name { get; }
+
+        public ResourceDictionary Templates { get; }
     }
 }

@@ -1,54 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
-using System.Windows.Input;
+using System.Windows.Controls;
 using TT.FlatMVVM;
-using TT.FlatMVVM.Utils;
-using WpfCoreDemo.Part1;
-using WpfCoreDemo.Part2;
-using WpfCoreDemo.Part3;
-using WpfCoreDemo.Part4;
-using WpfCoreDemo.Part5;
+using WpfCoreDemo.Utils;
 
 namespace WpfCoreDemo
 {
     internal class MainVM : FlatVM
     {
 
-        private readonly Dictionary<string, Window> _exampleWindows = new Dictionary<string, Window>();
+        private IDemoCase _activeView;
+        
+        public List<IDemoCase> DemoCases { get; }
 
-        private ICommand _openExamppleCommand;
+        public DataTemplateSelector DemoCaseContentTemplateSelector { get; }
 
-        public ICommand OpenExample => _openExamppleCommand ??= new DelegateCommand<string>(ExecuteOpenExample);
-
-        private void ExecuteOpenExample(string id)
+        public IDemoCase ActiveView
         {
-            if (_exampleWindows.TryGetValue(id, out Window exampleWindow))
-            {
-                exampleWindow.WindowState = WindowState.Normal;
-                exampleWindow.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                exampleWindow = id switch
-                {
-                    "1" => new Part1Window { Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new Part1VM() },
-                    "2" => new Part2Window { Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new Part2VM() },
-                    "3" => new Part3Window { Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new Part3VM() },
-                    "4" => new Part4Window { Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new Part4VM() },
-                    "5" => new Part5Window { Owner = UI.MainWindow, ShowInTaskbar = false, DataContext = new Part5VM() },
-                    _ => throw new ArgumentOutOfRangeException(nameof(id), $"Example id {id} dies not exist.")
-                };
-
-                exampleWindow.Closing += (sender, args) =>
-                {
-                    ((Window)sender).Visibility = Visibility.Collapsed;
-                    args.Cancel = true;
-                };
-
-                _exampleWindows.Add(id, exampleWindow);
-                exampleWindow.Show();
-            }
+            get => _activeView;
+            set => SetProperty(ref _activeView, value);
         }
+
+        public MainVM()
+        {
+            
+        }
+
+        public MainVM(IEnumerable<IDemoCase> demoCases)
+        {
+            DemoCases = demoCases.ToList();
+
+            var dynamicDataTemplateSelector = new DynamicDataTemplateSelector();
+
+            foreach (IDemoCase demoCase in DemoCases)
+            {
+                DataTemplate mainContentTemplate = Application.Current.FindDataTemplates("DemoCaseTemplate", demoCase.GetType()).FirstOrDefault();
+                dynamicDataTemplateSelector.AddDataTemplateMapping(demoCase, mainContentTemplate);
+            }
+
+            DemoCaseContentTemplateSelector = dynamicDataTemplateSelector;
+            ActiveView = DemoCases.FirstOrDefault();
+        }
+
     }
 }
