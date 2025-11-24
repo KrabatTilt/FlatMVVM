@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<!--Code Quality-->
+	<PropertyGroup>
+		<nullable>enable</nullable>
+		<AnalysisMode>Minimum</AnalysisMode>
+		<AnalysisModeSecurity>All</AnalysisModeSecurity>
+		<AnalysisModePerformance>All</AnalysisModePerformance>
+	</PropertyGroup>
+
+</Project>

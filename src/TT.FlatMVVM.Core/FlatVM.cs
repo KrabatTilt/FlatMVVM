@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace TT.FlatMVVM
 {
@@ -28,7 +24,7 @@ namespace TT.FlatMVVM
         /// Gets a value that indicates whether the entity has validation errors.
         /// </summary>
         /// <returns>true if the entity currently has validation errors; otherwise, false.</returns>
-        public bool HasErrors => _validationErrors.Count > 0;
+        public bool HasErrors => !_validationErrors.IsEmpty;
 
         #endregion
 
@@ -38,7 +34,7 @@ namespace TT.FlatMVVM
         /// Called when a property has changed.
         /// </summary>
         /// <param name="propertyName">Name of changed property.</param>
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -48,7 +44,7 @@ namespace TT.FlatMVVM
         /// </summary>
         /// <param name="sender">Name of changed property.</param>
         /// <param name="propertyChangedEventArgs"></param>
-        protected virtual void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        protected virtual void OnPropertyChanged(object? sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             PropertyChanged?.Invoke(sender, propertyChangedEventArgs);
         }
@@ -56,7 +52,7 @@ namespace TT.FlatMVVM
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
 
         /// <summary>
@@ -71,7 +67,7 @@ namespace TT.FlatMVVM
         /// <summary>
         /// Occurs when the validation errors have changed for a property or for the entire entity.
         /// </summary>
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
         #endregion
 
@@ -89,7 +85,7 @@ namespace TT.FlatMVVM
         /// The current approach is to check whether the value that should be assigned to the property is equal the current value.
         /// If true this method returns false and no PropertyChanged event is raised. Else it assigns the new value, raises the PropertyChanged event and returns true. 
         /// </remarks>
-        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, [CallerMemberName] string propertyName = null)
+        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<TProperty>.Default.Equals(store, value))
                 return false;
@@ -112,7 +108,7 @@ namespace TT.FlatMVVM
         /// The current approach is to check whether the value that should be assigned to the property is equal the current value.
         /// If true this method returns false and no PropertyChanged event is raised. Else it assigns the new value, raises the PropertyChanged event and returns true. 
         /// </remarks>
-        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, Func<TProperty, IEnumerable<string>> validationRule, [CallerMemberName] string propertyName = null)
+        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, Func<TProperty, IEnumerable<string>> validationRule, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<TProperty>.Default.Equals(store, value))
                 return false;
@@ -136,7 +132,7 @@ namespace TT.FlatMVVM
         /// The current approach is to check whether the value that should be assigned to the property is equal the current value.
         /// If true this method returns false and no PropertyChanged event is raised. Else it assigns the new value, raises the PropertyChanged event and returns true. 
         /// </remarks>
-        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, IEnumerable<string> linkedProperties, [CallerMemberName] string propertyName = null)
+        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, IEnumerable<string> linkedProperties, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<TProperty>.Default.Equals(store, value))
                 return false;
@@ -167,7 +163,7 @@ namespace TT.FlatMVVM
         /// The current approach is to check whether the value that should be assigned to the property is equal the current value.
         /// If true this method returns false and no PropertyChanged event is raised. Else it assigns the new value, raises the PropertyChanged event and returns true. 
         /// </remarks>
-        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, IEnumerable<string> linkedProperties, Func<TProperty, IEnumerable<string>> validationRule, [CallerMemberName] string propertyName = null)
+        protected virtual bool SetProperty<TProperty>(ref TProperty store, TProperty value, IEnumerable<string> linkedProperties, Func<TProperty, IEnumerable<string>> validationRule, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<TProperty>.Default.Equals(store, value))
                 return false;
@@ -196,7 +192,7 @@ namespace TT.FlatMVVM
         /// </summary>
         /// <returns>The validation errors for the property or entity.</returns>
         /// <param name="propertyName">The name of the property to retrieve validation errors for; or null or <see cref="F:System.String.Empty" />, to retrieve entity-level errors.</param>
-        public IEnumerable GetErrors(string propertyName)
+        public IEnumerable GetErrors(string? propertyName)
         {
             if (string.IsNullOrEmpty(propertyName) || !_validationErrors.ContainsKey(propertyName))
                 return null;

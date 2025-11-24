@@ -51,7 +51,7 @@ namespace TT.FlatMVVM.Utils
             ICommand command = Command;
             object commandParameter = CommandParameter;
 
-            //If an aditional command parameter is specified construct a tuple
+            //If an additional command parameter is specified construct a tuple
             if (commandParameter != null)
                 parameter = (parameter, commandParameter);
 
