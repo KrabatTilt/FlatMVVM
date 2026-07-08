@@ -241,3 +241,6 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /FlatMVVM/FlatMVVM.xml
+*.ncrunchproject
+*.ncrunchsolution
+/AGENTS.md

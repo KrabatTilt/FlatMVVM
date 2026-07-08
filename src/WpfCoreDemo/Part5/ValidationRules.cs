@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace WpfCoreDemo.Part5
+﻿namespace WpfCoreDemo.Part5
 {
     internal static class ValidationRules
     {
 
-        public static IEnumerable<string> ValidateNoNumbers(string input)
+        public static IEnumerable<string> ValidateNoNumbers(string? input)
         {
             var validationResult = new List<string>();
+
+            if(string.IsNullOrWhiteSpace(input))
+                return validationResult;
+
             if (input.Any(char.IsDigit))
                 validationResult.Add("Contains numbers");
 

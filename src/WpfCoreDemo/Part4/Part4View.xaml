@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfCoreDemo.Part4"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:utils="clr-namespace:TT.FlatMVVM.Utils;assembly=TT.FlatMVVM"
+             xmlns:utils="clr-namespace:TT.FlatMVVM.Wpf.Utils;assembly=TT.FlatMVVM.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance local:Part4VM, IsDesignTimeCreatable=True}">

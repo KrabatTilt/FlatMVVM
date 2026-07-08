@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Windows;
 
 namespace WpfCoreDemo.Utils
@@ -19,7 +17,7 @@ namespace WpfCoreDemo.Utils
             application.Resources.MergedDictionaries.Add(dictionary);
         }
 
-        public static IEnumerable<DataTemplate> FindDataTemplates(this Application application, string keyPattern, Type dataType, Uri sourcePattern = null)
+        public static IEnumerable<DataTemplate> FindDataTemplates(this Application application, string keyPattern, Type dataType, Uri? sourcePattern = null)
         {
             var hits = new List<DataTemplate>();
             foreach (ResourceDictionary applicationResource in application.Resources.MergedDictionaries)

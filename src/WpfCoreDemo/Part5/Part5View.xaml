@@ -42,10 +42,14 @@
             <TextBox Width="100" Style="{StaticResource TextErrorStyle}"
                      Text="{Binding StringInput1, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
             <TextBox Width="100" Style="{StaticResource TextErrorStyle}"
-                     Text="{Binding InputString2, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
+                     Text="{Binding StringInput2, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
 
             <TextBlock Text="{Binding Linked1}" />
             <TextBlock Text="{Binding Linked2}" />
+
+            <TextBox Width="100" Style="{StaticResource TextErrorStyle}"
+                     Text="{Binding StringInput3, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
+
         </StackPanel>
 
     </Grid>

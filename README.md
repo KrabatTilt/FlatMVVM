@@ -1,17 +1,68 @@
 # FlatMVVM
-FlatMVVM is a small MVVM framework supporting net48, net5.0-windows and net6.0-windows WPF applications.
-Its focus is on the View - ViewModel part of MVVM by providing base class for ViewModel, ICommand implementation 
+FlatMVVM is a small MVVM framework split into a cross-platform `TT.FlatMVVM.Core` package targeting `net8.0` and `net10.0`
+and a WPF-specific `TT.FlatMVVM.Wpf` package targeting `net8.0-windows` and `net10.0-windows`.
+Its focus is on the View - ViewModel part of MVVM by providing ViewModel base classes, ICommand implementations
 and some often used IValueConverter implementations.
 
-[![Nuget](https://img.shields.io/nuget/v/TT.FlatMVVM?style=for-the-badge)](https://www.nuget.org/packages/TT.FlatMVVM/) 
+[![Nuget Core](https://img.shields.io/nuget/v/TT.FlatMVVM.Core?style=for-the-badge&label=TT.FlatMVVM.Core)](https://www.nuget.org/packages/TT.FlatMVVM.Core/)
+[![Nuget WPF](https://img.shields.io/nuget/v/TT.FlatMVVM.Wpf?style=for-the-badge&label=TT.FlatMVVM.Wpf)](https://www.nuget.org/packages/TT.FlatMVVM.Wpf/)
 
 ### Features
-+ ViewModel BaseClass implementing INotifyPropertyChanged and INotifyDataErrorInfo
-+ ICommand implemented as DelegateCommand
++ ViewModel base classes implementing INotifyPropertyChanged and optional INotifyDataErrorInfo validation
++ ICommand implementations via DelegateCommand, ICommandFactory and command event strategies
 + EventBinding of Commands via Microsoft.Xaml.Behaviors.Wpf based TriggerActionCommand
 + BindingProxy to access DataContext when not inherited
 + ValueConverter Markup Extension
 
+## Migrate from 1.4.2 to 2.0.0:
+Version 2.0.0 is a breaking package split. The previous `TT.FlatMVVM` package was replaced by `TT.FlatMVVM.Core` and `TT.FlatMVVM.Wpf`.
+
+1. Retarget projects. `TT.FlatMVVM.Core` targets `net8.0` and `net10.0`; `TT.FlatMVVM.Wpf` targets `net8.0-windows` and `net10.0-windows`. Projects still targeting `net48`, `netcoreapp3.1` or `net5.0-windows` must be retargeted before upgrading.
+2. Replace NuGet references. Remove `TT.FlatMVVM`. Add `TT.FlatMVVM.Core` for ViewModel and command types. WPF applications that use converters, `TriggerActionCommand`, `BindingProxy`, control ViewModels or WPF command invalidation should also add `TT.FlatMVVM.Wpf`.
+3. Update C# namespaces:
+
+| 1.x namespace | 2.0.0 namespace | Types |
+| --- | --- | --- |
+| `TT.FlatMVVM` | `TT.FlatMVVM.Core` | `FlatVM`, `FlatValidationVM`, `DelegateCommand`, `ICommandFactory`, `CommandFactory`, `ICommandEventStrategy`, `LocalEventStrategy` |
+| `TT.FlatMVVM.Converter` | `TT.FlatMVVM.Wpf.Converter` | WPF value converters |
+| `TT.FlatMVVM.Utils` | `TT.FlatMVVM.Wpf.Utils` | `BindingProxy`, `BooleanParameter`, `TriggerActionCommand`, `UI` |
+| `TT.FlatMVVM.ControlVM` | `TT.FlatMVVM.Wpf.ControlVM` | `MenuItemVM`, `TabControlVM` |
+
+4. Update XAML namespace declarations:
+
+```xml
+xmlns:converter="clr-namespace:TT.FlatMVVM.Wpf.Converter;assembly=TT.FlatMVVM.Wpf"
+xmlns:utils="clr-namespace:TT.FlatMVVM.Wpf.Utils;assembly=TT.FlatMVVM.Wpf"
+```
+
+5. Update command creation. `DelegateCommand` constructors now require an `ICommandEventStrategy`. In WPF apps, register `WpfEventStrategy` and prefer creating commands through `ICommandFactory`.
+
+```csharp
+services.AddSingleton<ICommandEventStrategy, WpfEventStrategy>();
+services.AddSingleton<ICommandFactory, CommandFactory>();
+```
+
+```csharp
+private readonly ICommandFactory _commandFactory;
+private ICommand? _saveCommand;
+
+public ExampleVM(ICommandFactory commandFactory)
+{
+    _commandFactory = commandFactory;
+}
+
+public ICommand Save => _saveCommand ??= _commandFactory.Create(ExecuteSave, CanExecuteSave);
+```
+
+If you create commands manually, pass a strategy explicitly:
+
+```csharp
+var command = new DelegateCommand(new WpfEventStrategy(), ExecuteSave, CanExecuteSave);
+```
+
+For non-WPF usage, use `LocalEventStrategy` and call `RaiseCanExecuteChanged()` on the command when its executable state changes.
+
+6. Move validating ViewModels to `FlatValidationVM`. `FlatVM` now implements only `INotifyPropertyChanged`. ViewModels that use `HasErrors`, `GetErrors`, `ErrorsChanged` or validation-rule overloads of `SetProperty` should inherit from `FlatValidationVM`.
 
 ## Migrate from 1.0.1 to 1.1.0:
 Version 1.1.0 uses [Microsoft.Xaml.Behaviors.Wpf](https://www.nuget.org/packages/Microsoft.Xaml.Behaviors.Wpf/) instead of [Expression.Blend.Sdk](https://www.nuget.org/packages/Expression.Blend.Sdk/1.0.2).
@@ -108,16 +159,22 @@ XAML:
 ```
 ViewModel:
 ```csharp
-private ICommand _simpleClickCommand;
+private readonly ICommandFactory _commandFactory;
+private ICommand? _simpleClickCommand;
 
-public ICommand SimpleClick => _simpleClickCommand ??= new DelegateCommand(ExecuteSimpleClickCommand);
+public ViewModel(ICommandFactory commandFactory)
+{
+    _commandFactory = commandFactory;
+}
+
+public ICommand SimpleClick => _simpleClickCommand ??= _commandFactory.Create(ExecuteSimpleClickCommand);
 
 private void ExecuteSimpleClickCommand()
 {
     Debug.WriteLine("Simple Click Command");
 }
 ```
-**Note:** The Command in this example is initialized lazy in terms of when the ViewModel is created no instance of the DelegateCommand is created. But when the View is loaded the Command property gets evaluated and an instance of DelegateCommand is created. So it is not created on the first call triggered by the user.
+**Note:** Command in this example is initialized lazily. The factory creates the command when the binding first evaluates the command property, not when the ViewModel is constructed.
 
 ### 1.3. Binding Events
 
@@ -132,7 +189,7 @@ XAML:
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCoreDemo.Part4"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:utils="clr-namespace:TT.FlatMVVM.Utils;assembly=TT.FlatMVVM"
+        xmlns:utils="clr-namespace:TT.FlatMVVM.Wpf.Utils;assembly=TT.FlatMVVM.Wpf"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:Part4VM}"
         Title="Commands" Height="450" Width="800">
@@ -145,12 +202,20 @@ XAML:
 ```
 ViewModel:
 ```csharp
-private ICommand _windowLoadedCommand;
+private readonly ICommandFactory _commandFactory;
+private ICommand? _windowLoadedCommand;
 
-public ICommand WindowLoaded => _windowLoadedCommand ??= new DelegateCommand<RoutedEventArgs>(ExecuteWindowLoaded);
-
-private void ExecuteWindowLoaded(RoutedEventArgs args)
+public ViewModel(ICommandFactory commandFactory)
 {
+    _commandFactory = commandFactory;
+}
+
+public ICommand WindowLoaded => _windowLoadedCommand ??= _commandFactory.Create<RoutedEventArgs>(ExecuteWindowLoaded);
+
+private void ExecuteWindowLoaded(RoutedEventArgs? args)
+{
+    if (args == null) return;
+
     Debug.WriteLine($"{((Window)args.OriginalSource).Title} loaded.");
 }
 ```

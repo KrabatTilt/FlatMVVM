@@ -1,52 +1,45 @@
-﻿using System;
-using System.Timers;
-using System.Windows;
-using TT.FlatMVVM;
+﻿using System.Windows;
+using TT.FlatMVVM.Core;
+using Timer = System.Timers.Timer;
 
 namespace WpfCoreDemo.Part3
 {
-    internal class Part3VM : FlatVM , IDemoCase
+    internal sealed class Part3VM : FlatVM , IDemoCase
     {
-        private bool _bool1;
-        private bool _bool2;
-        private bool _bool3;
-        private bool? _bool4;
-
-
         public bool Bool1
         {
-            get => _bool1;
+            get;
             set
             {
-                if (value == _bool1)
+                if (value == field)
                     return;
-                _bool1 = value;
+                field = value;
                 OnPropertyChanged();
             }
         }
 
         public bool Bool2
         {
-            get => _bool2;
+            get;
             set
             {
-                if (value == _bool2)
+                if (value == field)
                     return;
-                _bool2 = value;
+                field = value;
                 OnPropertyChanged();
             }
         }
 
         public bool Bool3
         {
-            get => _bool3;
-            set => SetProperty(ref _bool3, value);
+            get;
+            set => SetProperty(ref field, value);
         }
 
         public bool? Bool4
         {
-            get => _bool4;
-            set => SetProperty(ref _bool4, value);
+            get;
+            set => SetProperty(ref field, value);
         }
 
         public Part3VM()
@@ -55,7 +48,7 @@ namespace WpfCoreDemo.Part3
             Templates = new ResourceDictionary { Source = new Uri("/WpfCoreDemo;component/Part3/Part3DataTemplates.xaml", UriKind.RelativeOrAbsolute) };
 
             var timer = new Timer(1000);
-            timer.Elapsed += (sender, args) => { Bool3 = !Bool3; };
+            timer.Elapsed += (_, _) => { Bool3 = !Bool3; };
             timer.Start();
         }
 

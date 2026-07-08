@@ -1,47 +1,45 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TT.FlatMVVM;
+using TT.FlatMVVM.Core;
 
 namespace WpfCoreDemo.Part4
 {
-    internal class Part4VM : FlatVM, IDemoCase
+    internal sealed class Part4VM : FlatVM, IDemoCase
     {
 
-        private ICommand _blockedCanExecuteClickCommand;
-        private ICommand _clickWithParameterCommand;
+        private readonly ICommandFactory _commandFactory;
 
-        private bool _isChecked;
-        private string _paramText;
-        
+        public string Name { get; }
+
+        public ResourceDictionary Templates { get; }
 
         public bool IsChecked
         {
-            get => _isChecked;
-            set => SetProperty(ref _isChecked, value);
+            get;
+            set => SetProperty(ref field, value);
         }
 
-        public string ParamText
+        public string? ParamText
         {
-            get => _paramText;
-            set => SetProperty(ref _paramText, value);
+            get;
+            set => SetProperty(ref field, value);
         }
 
 
-        public Part4VM()
+        public Part4VM(ICommandFactory commandFactory)
         {
+            _commandFactory = commandFactory;
+
             Name = "Commands";
             Templates = new ResourceDictionary { Source = new Uri("/WpfCoreDemo;component/Part4/Part4DataTemplates.xaml", UriKind.RelativeOrAbsolute) };
 
             ParamText = "Change me";
         }
 
-
-        private ICommand _simpleClickCommand;
         
-        public ICommand SimpleClick => _simpleClickCommand ??= new DelegateCommand(ExecuteSimpleClickCommand);
+        public ICommand SimpleClick => field ??= _commandFactory.Create(ExecuteSimpleClickCommand);
 
         private void ExecuteSimpleClickCommand()
         {
@@ -49,7 +47,7 @@ namespace WpfCoreDemo.Part4
         }
 
         
-        public ICommand CanExecuteClick => _blockedCanExecuteClickCommand ??= new DelegateCommand(ExecuteCanExecuteClick, CanExecuteCanExecuteClick);
+        public ICommand CanExecuteClick => field ??= _commandFactory.Create(ExecuteCanExecuteClick, CanExecuteCanExecuteClick);
 
         private bool CanExecuteCanExecuteClick()
         {
@@ -62,30 +60,27 @@ namespace WpfCoreDemo.Part4
         }
 
         
-        public ICommand ClickWithParameter => _clickWithParameterCommand ??= new DelegateCommand<string>(ExecuteClickWithParameter, CanExecuteClickWithParameter);
+        public ICommand ClickWithParameter => field ??= _commandFactory.Create<string>(ExecuteClickWithParameter, CanExecuteClickWithParameter);
 
-        private bool CanExecuteClickWithParameter(string value)
+        private static bool CanExecuteClickWithParameter(string? value)
         {
             return !string.IsNullOrWhiteSpace(value);
         }
 
-        private void ExecuteClickWithParameter(string value)
+        private static void ExecuteClickWithParameter(string? value)
         {
             Debug.WriteLine($"Can Execute Click Command with parameter: {value}");
         }
 
-        
-        private ICommand _windowLoadedCommand;
+        public ICommand WindowLoaded => field ??= _commandFactory.Create<RoutedEventArgs>(ExecuteWindowLoaded);
 
-        public ICommand WindowLoaded => _windowLoadedCommand ??= new DelegateCommand<RoutedEventArgs>(ExecuteWindowLoaded);
-
-        private void ExecuteWindowLoaded(RoutedEventArgs args)
+        private static void ExecuteWindowLoaded(RoutedEventArgs? args)
         {
+            if(args == null)
+                return;
+
             Debug.WriteLine($"{((UserControl)args.OriginalSource).Name} loaded.");
         }
-
-
-        public string Name { get; }
-        public ResourceDictionary Templates { get; }
+      
     }
 }

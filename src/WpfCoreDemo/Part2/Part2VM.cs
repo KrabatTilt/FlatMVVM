@@ -1,37 +1,33 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
-using TT.FlatMVVM;
+using TT.FlatMVVM.Core;
 
 namespace WpfCoreDemo.Part2
 {
-    internal class Part2VM : FlatVM, IDemoCase
+    internal sealed class Part2VM : FlatVM, IDemoCase
     {
 
-        private ICommand _noCanExecuteCheckCommand;
-        private ICommand _printTextCommandCommand;
-        private ICommand _singleParameterCommandCommand;
-        private ICommand _mouseMoveCommandCommand;
-        private ICommand _customEventCommandCommand;
+        private readonly ICommandFactory _commandFactory;
 
 
-        public Part2VM()
+        public Part2VM(ICommandFactory commandFactory)
         {
             Name = "Event Bindings";
             Templates = new ResourceDictionary { Source = new Uri("/WpfCoreDemo;component/Part2/Part2DataTemplates.xaml", UriKind.RelativeOrAbsolute) };
+
+            _commandFactory = commandFactory;
         }
 
 
-        public ICommand NoCanExecuteCheckCommand => _noCanExecuteCheckCommand ??= new DelegateCommand(ExecuteWindowLoadedCommand);
+        public ICommand NoCanExecuteCheckCommand => field ??= _commandFactory.Create(ExecuteWindowLoadedCommand);
 
         private static void ExecuteWindowLoadedCommand()
         {
             Debug.WriteLine("Window loaded");
         }
 
-
-        public ICommand ParameterlessCommand => _printTextCommandCommand ??= new DelegateCommand(ExecutePrintTextCommand, CanExecutePrintTextCommand);
+        public ICommand ParameterlessCommand => field ??= _commandFactory.Create(ExecutePrintTextCommand, CanExecutePrintTextCommand);
 
         private static bool CanExecutePrintTextCommand()
         {
@@ -44,7 +40,7 @@ namespace WpfCoreDemo.Part2
         }
 
 
-        public ICommand SingleParameterCommand => _singleParameterCommandCommand ??= new DelegateCommand<bool>(ExecuteSingleParameterCommand, CanExecuteSingleParameterCommand);
+        public ICommand SingleParameterCommand => field ??= _commandFactory.Create<bool>(ExecuteSingleParameterCommand, CanExecuteSingleParameterCommand);
 
         private static bool CanExecuteSingleParameterCommand(bool isChecked)
         {
@@ -57,33 +53,34 @@ namespace WpfCoreDemo.Part2
         }
 
 
-        public ICommand MouseMoveCommand => _mouseMoveCommandCommand ??= new DelegateCommand<MouseEventArgs, bool>(ExecuteMouseMoveCommand, CanExecuteMouseMoveCommand);
+        public ICommand MouseMoveCommand => field ??= _commandFactory.Create<MouseEventArgs, bool>(ExecuteMouseMoveCommand, CanExecuteMouseMoveCommand);
 
-        private static bool CanExecuteMouseMoveCommand(MouseEventArgs ma, bool ischecked)
-        {
-            return true;    
-        }
-
-        private static void ExecuteMouseMoveCommand(MouseEventArgs args, bool ischecked)
-        {
-            Debug.WriteLine($"EventType:{args.GetType().Name}, IsChecked: {ischecked}");
-        }
-
-
-        public ICommand CustomEventCommand => _customEventCommandCommand ??= new DelegateCommand<CustomEvent1Args>(ExecuteCustomEventCommand, CanExecuteCustomEventCommand);
-
-        private bool CanExecuteCustomEventCommand(CustomEvent1Args e)
+        private static bool CanExecuteMouseMoveCommand(MouseEventArgs? ma, bool isChecked)
         {
             return true;
         }
 
-        private void ExecuteCustomEventCommand(CustomEvent1Args e)
+        private static void ExecuteMouseMoveCommand(MouseEventArgs? args, bool isChecked)
         {
-            Debug.WriteLine(e.Position);
+            Debug.WriteLine($"EventType:{args?.GetType().Name}, IsChecked: {isChecked}");
+        }
+
+
+        public ICommand CustomEventCommand => field ??= _commandFactory.Create<CustomEvent1Args>(ExecuteCustomEventCommand, CanExecuteCustomEventCommand);
+
+        private bool CanExecuteCustomEventCommand(CustomEvent1Args? e)
+        {
+            return true;
+        }
+
+        private void ExecuteCustomEventCommand(CustomEvent1Args? e)
+        {
+            Debug.WriteLine(e?.Position);
         }
 
 
         public string Name { get; }
+
         public ResourceDictionary Templates { get; }
     }
 }

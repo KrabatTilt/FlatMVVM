@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/01_config/">
+    <File Path="../AGENTS.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="../global.json" />
+    <File Path="nuget.config" />
+  </Folder>
+  <Folder Name="/readme/">
+    <File Path="../README.md" />
+  </Folder>
+  <Project Path="TT.FlatMVVM.Core/TT.FlatMVVM.Core.csproj" />
+  <Project Path="TT.FlatMVVM.Core.Tests/TT.FlatMVVM.Core.Tests.csproj" />
+  <Project Path="TT.FlatMVVM.Wpf/TT.FlatMVVM.Wpf.csproj" />
+  <Project Path="WpfCoreDemo/WpfCoreDemo.csproj" />
+</Solution>

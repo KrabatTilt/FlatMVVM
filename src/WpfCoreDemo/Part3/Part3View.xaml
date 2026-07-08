@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfCoreDemo.Part3"
-             xmlns:converter="clr-namespace:TT.FlatMVVM.Converter;assembly=TT.FlatMVVM"
+             xmlns:converter="clr-namespace:TT.FlatMVVM.Wpf.Converter;assembly=TT.FlatMVVM.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance local:Part3VM, IsDesignTimeCreatable=True}">

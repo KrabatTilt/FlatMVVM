@@ -1,0 +1,34 @@
+<Project>
+
+	<!-- Common Build Settings -->
+	<PropertyGroup>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Deterministic>true</Deterministic>
+	</PropertyGroup>
+
+	<!-- Code Analysis -->
+	<PropertyGroup>
+		<AnalysisMode>Minimum</AnalysisMode>
+		<AnalysisModeSecurity>All</AnalysisModeSecurity>
+		<AnalysisModePerformance>All</AnalysisModePerformance>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>KrabatTilt</Authors>
+		<RepositoryUrl>https://github.com/KrabatTilt/FlatMVVM</RepositoryUrl>
+		<PackageTags>mvvm</PackageTags>
+		<Copyright>KrabatTilt</Copyright>
+		<Description>Simple cross Wpf MVVM framework</Description>
+		<RepositoryType>Git</RepositoryType>
+		<Company>Tilt Technologies</Company>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Product>TT.FlatMVVM</Product>
+		<IncludeSource>true</IncludeSource>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+</Project>

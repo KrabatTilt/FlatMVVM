@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
+using TT.FlatMVVM.Core;
+using TT.FlatMVVM.Wpf;
 using WpfCoreDemo.Part1;
 using WpfCoreDemo.Part2;
 using WpfCoreDemo.Part3;
@@ -15,7 +16,7 @@ namespace WpfCoreDemo
     /// </summary>
     public partial class App
     {
-        public IServiceProvider ServiceProvider { get; private set; }
+        public IServiceProvider? ServiceProvider { get; private set; }
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
@@ -34,9 +35,13 @@ namespace WpfCoreDemo
             mainWindow.Show();
         }
 
-        private static IServiceCollection ConfigureServices()
+        private static ServiceCollection ConfigureServices()
         {
             var serviceCollection = new ServiceCollection();
+
+            // Register the Factory
+            serviceCollection.AddSingleton<ICommandFactory, CommandFactory>();
+            serviceCollection.AddSingleton<ICommandEventStrategy, WpfEventStrategy>();
 
             //Register global objects
             serviceCollection

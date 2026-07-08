@@ -86,9 +86,9 @@
                     <TextBox Grid.Row="1" Grid.Column="1"
                              Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                    <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" IsReadOnly="True"
                              Text="{Binding FullName, Mode=OneWay}" TextAlignment="Center"/>
-                    <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                    <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" IsReadOnly="True"
                              Text="{Binding Email, Mode=OneWay}" TextAlignment="Center"/>
 
                 </Grid>

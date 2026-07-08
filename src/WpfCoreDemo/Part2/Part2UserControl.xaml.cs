@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace WpfCoreDemo.Part2
@@ -10,8 +9,7 @@ namespace WpfCoreDemo.Part2
     public partial class Part2UserControl
     {
 
-        public event EventHandler<CustomEvent1Args> CustomEvent1;
-
+        public event EventHandler<CustomEvent1Args>? CustomEvent1;
 
         public Part2UserControl()
         {

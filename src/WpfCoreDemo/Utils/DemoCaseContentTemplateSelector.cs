@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace WpfCoreDemo.Utils
@@ -7,12 +6,7 @@ namespace WpfCoreDemo.Utils
     internal sealed class DynamicDataTemplateSelector : DataTemplateSelector
     {
 
-        private readonly Dictionary<object, DataTemplate> _contentMappings;
-
-        public DynamicDataTemplateSelector()
-        {
-            _contentMappings = new Dictionary<object, DataTemplate>();
-        }
+        private readonly Dictionary<object, DataTemplate> _contentMappings = new();
 
         /// <summary>
         /// Adds a mapping of a content object to its data template.
@@ -24,9 +18,13 @@ namespace WpfCoreDemo.Utils
             _contentMappings.Add(key, value);
         }
 
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        /// <summary>When overridden in a derived class, returns a <see cref="T:System.Windows.DataTemplate" /> based on custom logic.</summary>
+        /// <param name="item">The data object for which to select the template.</param>
+        /// <param name="container">The data-bound object.</param>
+        /// <returns>Returns a <see cref="T:System.Windows.DataTemplate" /> or <see langword="null" />. The default value is <see langword="null" />.</returns>
+        public override DataTemplate? SelectTemplate(object? item, DependencyObject container)
         {
-            if (item != null && _contentMappings.TryGetValue(item, out DataTemplate template))
+            if (item != null && _contentMappings.TryGetValue(item, out DataTemplate? template))
                 return template;
 
             return null;

@@ -1,31 +1,31 @@
-﻿using System;
 using System.Windows;
-using TT.FlatMVVM;
+using TT.FlatMVVM.Core;
 
 namespace WpfCoreDemo.Part5
 {
-    internal class Part5VM : FlatVM , IDemoCase
+    internal sealed class Part5VM : FlatValidationVM , IDemoCase
     {
-
-        private string _stringInput1;
-        private string _inputString2;
-
-
-        public string StringInput1
+        public string? StringInput1
         {
-            get => _stringInput1;
-            set => SetProperty(ref _stringInput1, value, ValidationRules.ValidateNoNumbers);
+            get;
+            set => SetProperty(ref field, value, ValidationRules.ValidateNoNumbers);
         }
 
-        public string Linked1 => InputString2;
+        public string? Linked1 => StringInput2;
 
-        public string Linked2 => InputString2;
-        
+        public string? Linked2 => StringInput2;
 
-        public string InputString2
+
+        public string? StringInput2
         {
-            get => _inputString2;
-            set => SetProperty(ref _inputString2, value, new []{nameof(Linked1), nameof(Linked2)}, ValidationRules.ValidateNoNumbers);
+            get;
+            set => SetProperty(ref field, value, [nameof(Linked1), nameof(Linked2)], ValidationRules.ValidateNoNumbers);
+        }
+
+        public string? StringInput3
+        {
+            get;
+            set => SetProperty(ref field, value, ValidationRules.BadValidationRule());
         }
 
         public Part5VM()
